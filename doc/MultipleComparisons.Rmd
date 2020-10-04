@@ -1,0 +1,448 @@
+---
+title: "Multiple comparisons with PairViz"
+author: "Catherine B. Hurley and R.W. Oldford"
+date: "`r Sys.Date()`"
+output: rmarkdown::html_vignette
+vignette: >
+  %\VignetteIndexEntry{Multiple comparisons with PairViz}
+  %\VignetteEncoding{UTF-8}
+  %\VignetteEngine{knitr::rmarkdown}
+editor_options: 
+  chunk_output_type: console
+---
+
+```{r setup, include = FALSE}
+knitr::opts_chunk$set(
+  collapse = TRUE,
+  comment = "#>"
+)
+options(digits=4)
+```
+
+PairViz is an R package which provides orderings of  objects for visualisation purposes.
+This vignette demonstrates the use of PairViz for comparing distributions.
+We recommend that you check out the material in the accompanying vignette
+'Introduction to PairViz' prior to this.
+
+## Cancer treatment groups
+
+Patients with advanced cancers of the stomach, bronchus, colon, ovary or breast were treated with ascorbate. Interest lies in understanding whether patient survival time (in days, it seems) is different depending on the organ affected by cancer.
+
+```{r }
+suppressPackageStartupMessages(library(PairViz))
+data(cancer)  # Need this step to load the data
+str(cancer)   # Summary of structure of the data
+# We can separate the survival times by which organ is affected
+organs <- with(cancer, split(Survival, Organ))
+# And record their names for use later!
+organNames <- names(organs)
+# the structure of the organs data
+str(organs)
+```
+
+Boxplots of the cancer survival times are:
+```{r, fig.align="center", fig.width=6, fig.height=5}
+
+library(colorspace)
+cols <- rainbow_hcl(5, c = 50)  # choose chromaticity of 50 to dull colours
+boxplot(organs, col=cols, 
+        ylab="Survival time", 
+        main="Cancer treated by vitamin C")
+```
+
+Taking square roots should make the data look a little less asymmetric.
+
+```{r, fig.align="center", fig.width=6, fig.height=5}
+# Split the data
+sqrtOrgans <- with(cancer, split(sqrt(Survival), Organ))
+boxplot(sqrtOrgans, col=cols, 
+        ylab=expression(sqrt("Survival time")), 
+        main="Cancer treated by vitamin C")
+```
+
+## Layout via graph structure
+
+Suppose we would like to compare every organ type with every other.  To find an order, we need to find an Eulerian for a complete graph of $k=5$ nodes.
+
+
+This can be found with the `PairViz` function `eulerian()` as follows:
+
+```{r}
+ord <- eulerian(5)
+ord
+```
+
+We can use the constructed `ord` vectors to form boxplots:
+```{r, fig.align="center", fig.width=7.5, fig.height=5}
+boxplot(sqrtOrgans[ord], col=cols[ord], 
+        ylab=expression(sqrt("Survival time")), 
+        main="Cancer treated by vitamin C", cex.axis=.6)
+```
+
+Every pair of comparisons appear adjacently to one another. We have also taken care to
+assign each cancer type the same colour across all the boxplots.
+Note that this Eulerian order does not show all organs (colours) in the first five boxplots.  That is, it is not one Hamiltonian followed by another.
+If a Hamiltonian is required, then replace ord in the plot above with
+
+```{r}
+ordHam <-  hpaths(5, matrix = FALSE)
+ordHam
+```
+
+
+## Pairwise tests
+
+\small
+We could, for example, run some statistical test comparing each pair and then use the observed significance level for that test.
+
+Suppose we test the equality of each pairwise means (assuming normal distributions of course).
+A function in `R` that accomplishes this 
+(and which corrects the p-values for simultaneity, though this doesn't matter for our purpose of simply ordering)  is `pairwise.t.test`.
+
+
+```{r, }
+# Get the test results
+test <- with(cancer,
+             pairwise.t.test(sqrt(Survival), Organ))
+pvals <- test$p.value
+pvals
+```
+
+From this we can see that in testing the hypothesis that the mean $\sqrt{Survival}$ is identical for those with colon cancer and those with breast cancer, the observed significance level (or "p-value") is about 0.023.  This low value indicates evidence against the hypothesis that the means are identical.
+
+
+Note the shape of the output (compare row names to column names).  This will require a little work to put it into a more useful form.
+Our goal here is to construct a symmetric matrix where each entry is a p-value
+comparing two groups.
+```{r}
+# First construct a vector, removing NAs.
+weights <- pvals[!is.na(pvals)]
+weights <-edge2dist(weights)
+```
+edge2dist is a utility function in PairViz that converts the values in the input vector into a dist.
+A matrix with labelled rows and columns is more useful to us:
+
+```{r}
+weights <- as.matrix(weights)
+rownames(weights) <- organNames
+colnames(weights)<- rownames(weights)
+weights
+```
+Check that the weight values correctly correspond to p-values.
+Imagine the graph, with the boxplots (or organs) as nodes, and edges being the comparisons.  We could assign **weights to the edges** of the graph that were identical to the significance levels. 
+
+## (Aside) Construction and display of the graph
+
+Here is the graph:
+
+```{r}
+g <- mk_complete_graph(weights)
+```
+
+
+
+To plot the graph in igraph use
+```{r fig.width=5, fig.height=5, fig.align='center'}
+requireNamespace("igraph")
+igplot <- function(g,weights=FALSE,layout=igraph::layout_in_circle, 
+                   vertex.size=60, vertex.color="lightblue",...){
+    g <- igraph::graph_from_graphnel(as(g, "graphNEL"))
+    op <- par(mar=c(1,1,1,1))
+    if (weights){
+      ew <- round(igraph::get.edge.attribute(g,"weight"),3) 
+      igraph::plot.igraph(g,layout=layout,edge.label=ew,vertex.size=vertex.size,vertex.color=vertex.color,...)
+    }
+    else
+    igraph::plot.igraph(g,layout=layout,vertex.size=vertex.size,vertex.color=vertex.color,...)
+    par(op)
+}
+igplot(g,weights=TRUE,edge.label.color="black")
+```
+
+To plot the graph in Rgraphviz use:
+```{r fig.width=5, fig.height=5,fig.align='center', eval=FALSE}
+library(Rgraphviz)
+ew <- round(unlist(edgeWeights(g)),3)
+ew <- ew[setdiff(seq(along=ew), removedEdges(g))]
+names(ew) <- edgeNames(g)
+plot(g,  "circo",edgeAttrs=list(label=ew))
+```
+
+## Visiting edges and nodes
+We might then ask whether we could have a path that
+
+- visited all **edges** but preferred to visit low-weight (or high weight) edges soonest (a greedy Eulerian)
+    - this is particularly useful if not all edges can be visited (for whatever reason)
+- visited every **node** but had the least (or most) total weight
+
+
+This greedy Eulerian visits all edges, arranging the path so low weight edges
+are encountered early.
+```{r, }
+low2highEulord <- eulerian(weights); colnames(weights)[low2highEulord]
+## or equivalently
+eulerian(g)
+```
+
+This path visits all nodes exactly once, choosing a path whose total weight is lowest.
+```{r, }
+bestHam <- order_best(weights)
+colnames(weights)[bestHam]
+```
+
+Using the path `low2highEulord` to order the boxplots, we get
+
+```{r, fig.align="center", fig.width=7.5, fig.height=5}
+boxplot(sqrtOrgans[low2highEulord], col=cols[ord], 
+        ylab=expression(sqrt("Survival time")), 
+        main="Cancer treated by vitamin C", cex.axis=.6)
+```
+
+In this display the pairs of cancers with the biggest differences in survival times
+appear early in the sequence. This arrangement should help to focus the viewer's attention on
+the differences between the survival times across organ types.
+
+Comparisons can be assisted by inserting some visual representation of the
+pairwise difference in between pairs of boxplots. 
+We will use a visualisation of a confidence interval for the
+difference in population means, adjusted for multiple comparisons, like that
+given by `TukeyHSD`.
+
+
+## Multiple comparisons with Tukey's HSD
+
+
+
+First we carry out an anova analysis comparing the groups.
+
+```{r fig.width=5, fig.height=5, align='center'}
+aovOrgans <-  aov(sqrt(Survival) ~ Organ,data=cancer)
+TukeyHSD(aovOrgans,conf.level = 0.95)
+```
+
+The `TukeyHSD()` results give confidence intervals comparing population means,
+and p-values for the pairwise tests.
+These p-values are slightly different to those from `pairwise.t.test()` as the method of correction
+for pairwise comparison is different.
+They may also be used to form a graph, and an Eulerian which favours low weights:
+
+```{r}
+tuk <-TukeyHSD(aovOrgans,conf.level = 0.95)
+ptuk <- tuk$Organ[,"p adj"]
+dtuk <- as.matrix(edge2dist(ptuk))
+rownames(dtuk)<- colnames(dtuk)<- organNames
+g <- mk_complete_graph(weights)
+eulerian(dtuk)
+```
+In this cases the Eulerian calculated from the `TukeyHSD` p-values
+coincides with that from the `pairwise.t.test` results.
+
+We can also plot the Tukey confidence intervals using
+
+```{r fig.width=5, fig.height=5, align='center'}
+par(mar=c(3,8,3,3))
+plot(TukeyHSD(aovOrgans,conf.level = 0.95),las=1,tcl = -.3)
+```
+
+We wish to construct a plot that includes
+
+- the boxplots of the survival times by group with all pairs adjacent
+
+- and, a confidence visualisation in between each pair of boxplots.
+
+
+
+## Boxplots With Pairwise Testing: Vitamin C
+
+In PairViz, we provide a function `mcplots()` which interleaves
+group boxplots and a confidence interval visualisation:
+
+```{r fig.align="center", fig.width=7.5, fig.height=5}
+
+mc_plot(sqrtOrgans,aovOrgans,main="Pairwise comparisons of cancer types", 
+        ylab="Sqrt Survival",col=cols,cex.axis=.6)
+```
+
+Some of the features of this plot are
+
+- The boxplots are ordered using an Eulerian of the `TukeyHSD` p-values, computed from `aovOrgans`.
+
+- By default boxplots have variable width, reflecting group sizes. See the documentation for parameter `varwidth` to adjust this.
+
+- The gray vertical strip between each pair of boxplots depicts the HSD confidence interval for the
+diference in means from the distributions in the two boxplots.
+
+- The circle in the middle of the gray strip is the point estimate for the difference in means
+
+- The axis on the left hand side refers to the boxplots, the right hand axis refers to the confidence intervals.
+
+- Three levels of confidence are depicted by the gray strips. The light grey part shows a 90% interval. Moving out to include the mid-gray section gives a 95% interval. Including the dark gray section gives a 99%
+confidence interval. The confidence levels of displayed intervals is controlled by the `levels` parameter of `mc_plot()`.
+
+- The horizontal gray line segments shows the zero value of the right hand or confidence interval axis.
+
+- Confidence intervals which do not intersect the zero axis represent comparisons whose p-values are less than 0.01.
+
+- The red arrows depict comparisons where the confidence interval does not intersect the
+zero axis.  Longer arrows mean greater significance, i.e. smaller p-values.
+
+
+Suppose you wish to use `mc_plot` to depict confidence intervals other than those given by `TukeyHSD`.
+This is possible, once we can 
+construct a matrix with the necessary information, that is, the first column is estimate,
+then is followed by lower and upper confidence bounds for a number of
+confidence levels. In this case, the required order should be supplied as the `path` input.
+
+
+```{r fig.align="center", fig.width=7.5, fig.height=5}
+
+suppressPackageStartupMessages(library(multcomp))
+fitVitC <- glht(aovOrgans, linfct = mcp(Organ= "Tukey"))
+
+# this gives confidence intervals without a family correction
+confint(fitVitC,level=.99,calpha = univariate_calpha())
+
+# for short, define
+cifunction<- function(f, lev) 
+  confint(f,level=lev,calpha = univariate_calpha())$confint
+
+# calculate the confidence intervals
+conf <- cbind(cifunction(fitVitC,.9),cifunction(fitVitC,.95)[,-1],cifunction(fitVitC,.99)[,-1])
+
+
+mc_plot(sqrtOrgans,conf,path=low2highEulord,
+        main="Pairwise comparisons of cancer types", 
+        ylab="Sqrt Survival",col=cols,cex.axis=.6)
+
+
+
+```
+
+Without the family-wise correction, the Breast-Colon comparison is also significant.
+
+
+## Subsets of comparisons: Mice Diets
+
+
+<!-- To do mice example with reduced set of comparisons -->
+
+<!-- see files cables/diet.R and dietsleuth.R -->
+
+Female mice were randomly assigned to six treatment groups to investigate whether restricting dietary intake increases life expectancy.
+The data is available as
+```{r}
+if (!requireNamespace("Sleuth3", quietly = TRUE)){
+    install.packages("Sleuth3")
+}
+library(Sleuth3)
+mice <- case0501
+str(mice)
+levels(mice$Diet)
+# get rid of "/"
+levels(mice$Diet) <-  c("NN85", "NR40", "NR50", "NP" ,   "RR50" ,"lopro")
+```
+
+Plot the data:
+```{r, fig.align="center", fig.width=6, fig.height=5}
+
+life <- with(mice, split(Lifetime ,Diet))
+cols <- rainbow_hcl(6, c = 50) 
+boxplot(life, col=cols, 
+        ylab="Lifetime", 
+        main="Diet Restriction and Longevity")
+```
+
+While there are 6 treatment groups with 15 pairwise comparisons, five of the
+comparisons are of particular interest. These are 
+N/R50 vs N/N85, 
+          R/R50  vs N/R50,
+          N/R40  vs N/R50,
+          lopro vs N/R50 and 
+          N/N85  vs NP.
+See the documentation for case0501 for more details.
+
+
+This  analysis follows that given in the documentation for case0501.
+```{r}
+aovMice   <- aov(Lifetime ~ Diet-1, data=mice)
+fitMice <- glht(aovMice,
+          linfct=c("DietNR50 - DietNN85 = 0", 
+          "DietRR50  - DietNR50 = 0",
+          "DietNR40  - DietNR50 = 0",
+          "Dietlopro - DietNR50 = 0",
+          "DietNN85  - DietNP   = 0")) 
+  summary(fitMice,test=adjusted("none")) # No multiple comparison adjust.
+  confint(fitMice, calpha = univariate_calpha()) # No adjustment
+```
+Four of the five comparisons are significant.
+
+## Boxplots With Pairwise Testing: Mice Diets
+
+Our goal here is to construct a multiple comparisons boxplot showing
+confidence intervals only for the comparisons of interest, as calculated above.
+
+First we make a graph whose nodes are diets. The graph has no edges.
+
+```{r}
+g <- new("graphNEL", nodes=names(life))
+```
+
+Next add edges for the comparisons of interest, whose weights are p-values.
+To draw the graph, I specified the coordinates of the nodes via the layout parameter.
+
+```{r fig.align='center', fig.width=5, fig.height=5}
+fitMiceSum <- summary(fitMice,test=adjusted("none"))
+pvalues <- fitMiceSum$test$pvalues
+pvalues
+# Extract  labels from the p-values for the edges
+edgeLabs <- unlist(strsplit(names(pvalues), " - "))
+edgeLabs <- matrix(substring(edgeLabs,5), nrow=2)
+g <- addEdge(edgeLabs[1,], edgeLabs[2,], g,pvalues)
+
+pos <- rbind(c(-1,0), c(0,-1), c(0,0), c(-2,0),c(1,0), c(0,1))
+igplot(g, weights=TRUE, layout=pos,vertex.size=32)
+```
+
+This graph is not Eulerian. It is not possible to construct a path visiting every edge
+that does not visit some edges more than once, or that does not insert two extra edges.
+
+```{r}
+eulerian(g)
+```
+This Eulerian inserts extra edges between NP and RR50, and NR40 and lopro.
+A "nicer" Eulerian might be obtained if the new edges were inserted elsewhere.
+These new edges are given weights of 1, to indicate the associated comparisons
+are uninteresting.
+
+```{r fig.align='center', fig.width=5, fig.height=5}
+g1 <- addEdge("NR40","NP",g,1)
+g1 <- addEdge("lopro","RR50",g1,1)
+igplot(g1, weights=TRUE, layout=pos,vertex.size=32)
+eulerian(g1)
+```
+
+Now we are ready to construct the multiple comparisons plot.
+
+
+```{r, fig.align="center", fig.width=6, fig.height=5}
+
+eul <- eulerian(g1)
+# make eul numeric
+eul <- match(eul, names(life))
+
+fitMice1 <- glht(aovMice, linfct = mcp(Diet= "Tukey"), calpha = univariate_calpha())
+
+# need to construct the confidence intervals for all pairs
+conf <- cbind(cifunction(fitMice1,.9),cifunction(fitMice1,.95)[,-1],cifunction(fitMice1,.99)[,-1])
+# these comparisons are not relevant
+conf[c(1,4,5,7,8,9,13,14,15),]<- NA
+
+mc_plot(life,conf,path=eul,
+        main="Diet Restriction and Longevity", 
+        ylab="Lifetime",col=cols,cex.axis=.6)
+
+```
+
+Notice that confidence intervals are drawn only for the relevant comparisons.
+Only the first two comparisons have 99% confidence intervals which do not straddle the
+zero axis. These comparisons are designated by red arrows in the plot above.

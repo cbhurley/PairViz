@@ -1,0 +1,35 @@
+import(graphics)
+import(graph,TSP)
+importFrom(gtools,permutations)
+import(grDevices)
+import(methods)
+import(stats)
+
+importFrom("utils", "combn")
+export(
+    zigzag,
+    hpaths,
+    permute_hpaths,
+    weighted_hpaths,
+    order_tsp,order_best,
+    best_orientation,
+    eseq,  eseqa,  
+    kntour_add,kntour_drop,
+    mk_complete_graph,
+    etour,     mc_plot,overlayCI,
+    desaturate_color,
+    guided_pcp, table_plot,
+    edge_index, 
+    edge2dist,dist2edge, find_path,
+    path_weights, path_cis,
+    nnodes,path_cor,pcp,catpcp, rater_spreadout, factor_spreadout,mk_binary_graph,
+    mk_hypercube_graph, mk_line_graph,graph_product,graph_sum,knn_graph,dn_graph, kspace_graph, bipartite_graph, graph_compose,iterated_line_graph
+    )
+    
+exportClasses(even_graph) 
+
+
+exportMethods(is_even_graph, mk_even_graph, eulerian)
+
+S3method(edge_index, default)
+S3method(edge_index, scagnostics)

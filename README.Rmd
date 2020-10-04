@@ -1,0 +1,39 @@
+---
+output: github_document
+---
+
+<!-- README.md is generated from README.Rmd. Please edit that file -->
+
+```{r, include = FALSE}
+knitr::opts_chunk$set(
+  collapse = TRUE,
+  comment = "#>",
+  fig.path = "man/figures/README-",
+  out.width = "100%"
+)
+```
+# PairViz
+
+<!-- badges: start -->
+<!-- badges: end -->
+
+The goal of PairViz is to improving graphics by ameliorating order effects, using Eulerian tours and Hamiltonian decompositions of  graphs.
+
+## Installation
+
+You can install the released version of PairViz from [CRAN](https://CRAN.R-project.org) with:
+
+``` r {r eval=FALSE}
+install.packages("PairViz")
+```
+
+You will also need to install the graph package from Bioconductor.
+
+```{r eval=FALSE}
+if (!requireNamespace("BiocManager", quietly = TRUE))
+    install.packages("BiocManager")
+
+BiocManager::install("graph")
+```
+
+To get started, check out the PairVizIntroduction vignette.
