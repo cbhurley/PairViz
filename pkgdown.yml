@@ -1,0 +1,12 @@
+pandoc: 2.7.3
+pkgdown: 1.6.1
+pkgdown_sha: ~
+articles:
+  MultipleComparisons: MultipleComparisons.html
+  PairVizIntroduction: PairVizIntroduction.html
+  pcp: pcp.html
+last_built: 2021-04-08T08:52Z
+urls:
+  reference: https://cbhurley.github.io/PairViz/reference
+  article: https://cbhurley.github.io/PairViz/articles
+
