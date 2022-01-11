@@ -1,1 +1,4 @@
-url: https://cbhurley.github.io/PairViz
+url: https://cbhurley.github.io/PairViz/
+template:
+  bootstrap: 5
+

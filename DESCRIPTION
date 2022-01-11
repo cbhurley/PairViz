@@ -1,6 +1,6 @@
 Package: PairViz
-Version: 1.3.4
-Date: 2020-10-04
+Version: 1.3.5
+Date: 2022-01-10
 Author: C.B. Hurley and R.W. Oldford
 Maintainer: Catherine Hurley <catherine.hurley@mu.ie>
 Title: Visualization using Graph Traversal
@@ -10,5 +10,6 @@ Depends: TSP,gtools, graph, methods
 Suggests: knitr, rmarkdown, Sleuth3, colorspace,multcomp,igraph, scales,RColorBrewer,alr4,scagnostics
 License: GPL-2
 VignetteBuilder: knitr
-RoxygenNote: 7.1.1
-URL: https://cbhurley.github.io/PairViz
+RoxygenNote: 7.1.2
+URL: https://cbhurley.github.io/PairViz,
+    https://cbhurley.github.io/PairViz/

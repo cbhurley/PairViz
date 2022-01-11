@@ -430,7 +430,7 @@ eul <- eulerian(g1)
 # make eul numeric
 eul <- match(eul, names(life))
 
-fitMice1 <- glht(aovMice, linfct = mcp(Diet= "Tukey"), calpha = univariate_calpha())
+fitMice1 <- glht(aovMice, linfct = mcp(Diet= "Tukey"))
 
 # need to construct the confidence intervals for all pairs
 conf <- cbind(cifunction(fitMice1,.9),cifunction(fitMice1,.95)[,-1],cifunction(fitMice1,.99)[,-1])
