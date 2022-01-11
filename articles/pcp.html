@@ -4,115 +4,95 @@
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <meta charset="utf-8">
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+<meta name="description" content="PairViz">
 <title>Correlation and scagnostic guided parallel coordinate plots • PairViz</title>
-<!-- jquery --><script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.4.1/jquery.min.js" integrity="sha256-CSXorXvZcTkaix6Yvo6HppcZGetbYMGWSFlBw8HfCJo=" crossorigin="anonymous"></script><!-- Bootstrap --><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.4.1/css/bootstrap.min.css" integrity="sha256-bZLfwXAP04zRMK2BjiO8iu9pf4FbLqX6zitd+tIvLhE=" crossorigin="anonymous">
-<script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.4.1/js/bootstrap.min.js" integrity="sha256-nuL8/2cJ5NDSSwnKD8VqreErSWHtnEP9E7AySL+1ev4=" crossorigin="anonymous"></script><!-- bootstrap-toc --><link rel="stylesheet" href="../bootstrap-toc.css">
-<script src="../bootstrap-toc.js"></script><!-- Font Awesome icons --><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.12.1/css/all.min.css" integrity="sha256-mmgLkCYLUQbXn0B1SRqzHar6dCnv9oZFPEC1g1cwlkk=" crossorigin="anonymous">
+<script src="../deps/jquery-3.6.0/jquery-3.6.0.min.js"></script><meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+<link href="../deps/bootstrap-5.1.0/bootstrap.min.css" rel="stylesheet">
+<script src="../deps/bootstrap-5.1.0/bootstrap.bundle.min.js"></script><!-- Font Awesome icons --><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.12.1/css/all.min.css" integrity="sha256-mmgLkCYLUQbXn0B1SRqzHar6dCnv9oZFPEC1g1cwlkk=" crossorigin="anonymous">
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.12.1/css/v4-shims.min.css" integrity="sha256-wZjR52fzng1pJHwx4aV2AO3yyTOXrcDW7jBpJtTwVxw=" crossorigin="anonymous">
-<!-- clipboard.js --><script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/2.0.6/clipboard.min.js" integrity="sha256-inc5kl9MA1hkeYUt+EC3BhlIgyp/2jDIyBLS6k3UxPI=" crossorigin="anonymous"></script><!-- headroom.js --><script src="https://cdnjs.cloudflare.com/ajax/libs/headroom/0.11.0/headroom.min.js" integrity="sha256-AsUX4SJE1+yuDu5+mAVzJbuYNPHj/WroHuZ8Ir/CkE0=" crossorigin="anonymous"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/headroom/0.11.0/jQuery.headroom.min.js" integrity="sha256-ZX/yNShbjqsohH1k95liqY9Gd8uOiE1S4vZc+9KQ1K4=" crossorigin="anonymous"></script><!-- pkgdown --><link href="../pkgdown.css" rel="stylesheet">
-<script src="../pkgdown.js"></script><meta property="og:title" content="Correlation and scagnostic guided parallel coordinate plots">
+<!-- bootstrap-toc --><script src="https://cdn.rawgit.com/afeld/bootstrap-toc/v1.0.1/dist/bootstrap-toc.min.js"></script><!-- headroom.js --><script src="https://cdnjs.cloudflare.com/ajax/libs/headroom/0.11.0/headroom.min.js" integrity="sha256-AsUX4SJE1+yuDu5+mAVzJbuYNPHj/WroHuZ8Ir/CkE0=" crossorigin="anonymous"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/headroom/0.11.0/jQuery.headroom.min.js" integrity="sha256-ZX/yNShbjqsohH1k95liqY9Gd8uOiE1S4vZc+9KQ1K4=" crossorigin="anonymous"></script><!-- clipboard.js --><script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/2.0.6/clipboard.min.js" integrity="sha256-inc5kl9MA1hkeYUt+EC3BhlIgyp/2jDIyBLS6k3UxPI=" crossorigin="anonymous"></script><!-- search --><script src="https://cdnjs.cloudflare.com/ajax/libs/fuse.js/6.4.6/fuse.js" integrity="sha512-zv6Ywkjyktsohkbp9bb45V6tEMoWhzFzXis+LrMehmJZZSys19Yxf1dopHx7WzIKxr5tK2dVcYmaCk2uqdjF4A==" crossorigin="anonymous"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/autocomplete.js/0.38.0/autocomplete.jquery.min.js" integrity="sha512-GU9ayf+66Xx2TmpxqJpliWbT5PiGYxpaG8rfnBEk1LL8l1KGkRShhngwdXK1UgqhAzWpZHSiYPc09/NwDQIGyg==" crossorigin="anonymous"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/mark.js/8.11.1/mark.min.js" integrity="sha512-5CYOlHXGh6QpOFA/TeTylKLWfB3ftPsde7AnmhuitiTX4K5SqCLBeKro6sPS8ilsz1Q4NRx3v8Ko2IBiszzdww==" crossorigin="anonymous"></script><!-- pkgdown --><script src="../pkgdown.js"></script><meta property="og:title" content="Correlation and scagnostic guided parallel coordinate plots">
 <meta property="og:description" content="PairViz">
 <!-- mathjax --><script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/MathJax.js" integrity="sha256-nvJJv9wWKEm88qvoQl9ekL2J+k/RWIsaSScxxlsrv8k=" crossorigin="anonymous"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/config/TeX-AMS-MML_HTMLorMML.js" integrity="sha256-84DKXVJXs0/F8OTMzX4UR909+jtl4G7SPypPavF+GfA=" crossorigin="anonymous"></script><!--[if lt IE 9]>
 <script src="https://oss.maxcdn.com/html5shiv/3.7.3/html5shiv.min.js"></script>
 <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
 <![endif]-->
 </head>
-<body data-spy="scroll" data-target="#toc">
-    <div class="container template-article">
-      <header><div class="navbar navbar-default navbar-fixed-top" role="navigation">
-  <div class="container">
-    <div class="navbar-header">
-      <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar" aria-expanded="false">
-        <span class="sr-only">Toggle navigation</span>
-        <span class="icon-bar"></span>
-        <span class="icon-bar"></span>
-        <span class="icon-bar"></span>
-      </button>
-      <span class="navbar-brand">
-        <a class="navbar-link" href="../index.html">PairViz</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">1.3.4</span>
-      </span>
-    </div>
+<body>
+    <a href="#main" class="visually-hidden-focusable">Skip to contents</a>
+    
 
-    <div id="navbar" class="navbar-collapse collapse">
-      <ul class="nav navbar-nav">
-<li>
-  <a href="../index.html">
-    <span class="fas fa-home fa-lg"></span>
-     
-  </a>
+    <nav class="navbar fixed-top navbar-light navbar-expand-lg bg-light"><div class="container">
+    
+    <a class="navbar-brand me-2" href="../index.html">PairViz</a>
+
+    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">1.3.5</small>
+
+    
+    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+
+    <div id="navbar" class="collapse navbar-collapse ms-2">
+      <ul class="navbar-nav me-auto">
+<li class="nav-item">
+  <a class="nav-link" href="../reference/index.html">Reference</a>
 </li>
-<li>
-  <a href="../reference/index.html">Reference</a>
-</li>
-<li class="dropdown">
-  <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
-    Articles
-     
-    <span class="caret"></span>
-  </a>
-  <ul class="dropdown-menu" role="menu">
-<li>
-      <a href="../articles/MultipleComparisons.html">Multiple comparisons with PairViz</a>
-    </li>
-    <li>
-      <a href="../articles/PairVizIntroduction.html">Introduction to PairViz</a>
-    </li>
-    <li>
-      <a href="../articles/pcp.html">Correlation and scagnostic guided parallel coordinate plots</a>
-    </li>
-  </ul>
+<li class="active nav-item dropdown">
+  <a href="#" class="nav-link dropdown-toggle" data-bs-toggle="dropdown" role="button" aria-expanded="false" aria-haspopup="true" id="dropdown-articles">Articles</a>
+  <div class="dropdown-menu" aria-labelledby="dropdown-articles">
+    <a class="dropdown-item" href="../articles/MultipleComparisons.html">Multiple comparisons with PairViz</a>
+    <a class="dropdown-item" href="../articles/PairVizIntroduction.html">Introduction to PairViz</a>
+    <a class="dropdown-item" href="../articles/pcp.html">Correlation and scagnostic guided parallel coordinate plots</a>
+  </div>
 </li>
       </ul>
-<ul class="nav navbar-nav navbar-right"></ul>
+<form class="form-inline my-2 my-lg-0" role="search">
+        <input type="search" class="form-control me-sm-2" aria-label="Toggle navigation" name="search-input" data-search-index="../search.json" id="search-input" placeholder="Search for" autocomplete="off">
+</form>
+
+      <ul class="navbar-nav"></ul>
 </div>
-<!--/.nav-collapse -->
+
+    
   </div>
-<!--/.container -->
-</div>
-<!--/.navbar -->
-
-      
-
-      </header><script src="pcp_files/accessible-code-block-0.0.1/empty-anchor.js"></script><div class="row">
-  <div class="col-md-9 contents">
-    <div class="page-header toc-ignore">
-      <h1 data-toc-skip>Correlation and scagnostic guided parallel coordinate plots</h1>
-                        <h4 class="author">Catherine B. Hurley and R.W. Oldford</h4>
+</nav><div class="container template-article">
+<script src="pcp_files/accessible-code-block-0.0.1/empty-anchor.js"></script><div class="row">
+  <main id="main"><div class="page-header">
+      <img src="" class="logo" alt=""><h1>Correlation and scagnostic guided parallel coordinate plots</h1>
+                        <h4 data-toc-skip class="author">Catherine B. Hurley and R.W. Oldford</h4>
             
-            <h4 class="date">2021-04-08</h4>
+            <h4 data-toc-skip class="date">2022-01-11</h4>
       
       
-      <div class="hidden name"><code>pcp.Rmd</code></div>
-
+      <div class="d-none name"><code>pcp.Rmd</code></div>
     </div>
 
     
     
 <p>PairViz is an R package which provides orderings of objects for visualisation purposes. This vignette demonstrates the use of PairViz constructing parallel coordinate plots, which place emphasis on different data patterns.</p>
-<div id="correlation-guided-plots-of-mtcars-using-hamiltonians" class="section level2">
-<h2 class="hasAnchor">
-<a href="#correlation-guided-plots-of-mtcars-using-hamiltonians" class="anchor"></a>Correlation guided plots of mtcars using Hamiltonians</h2>
+<div class="section level2">
+<h2 id="correlation-guided-plots-of-mtcars-using-hamiltonians">Correlation guided plots of mtcars using Hamiltonians<a class="anchor" aria-label="anchor" href="#correlation-guided-plots-of-mtcars-using-hamiltonians"></a>
+</h2>
 <p>First, we select six of the variables in <code>mtcars</code>, and make a parallel coordinate plot. We will use the variant on a PCP provided by PairViz, which is the function <code>pcp</code>.</p>
 <div class="sourceCode" id="cb1"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="fu"><a href="https://rdrr.io/r/base/message.html">suppressPackageStartupMessages</a></span><span class="op">(</span><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://cbhurley.github.io/PairViz">PairViz</a></span><span class="op">)</span><span class="op">)</span>
-<span class="va">data</span> <span class="op">&lt;-</span> <span class="va">mtcars</span><span class="op">[</span>,<span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="fl">1</span>,<span class="fl">3</span><span class="op">:</span><span class="fl">7</span><span class="op">)</span><span class="op">]</span>
+<code class="sourceCode R"><span class="fu"><a href="https://rdrr.io/r/base/message.html" class="external-link">suppressPackageStartupMessages</a></span><span class="op">(</span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://cbhurley.github.io/PairViz">PairViz</a></span><span class="op">)</span><span class="op">)</span>
+<span class="va">data</span> <span class="op">&lt;-</span> <span class="va">mtcars</span><span class="op">[</span>,<span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">1</span>,<span class="fl">3</span><span class="op">:</span><span class="fl">7</span><span class="op">)</span><span class="op">]</span>
 <span class="fu"><a href="../reference/pcp.html">pcp</a></span><span class="op">(</span><span class="va">data</span>,horizontal<span class="op">=</span><span class="cn">TRUE</span>,lwd<span class="op">=</span><span class="fl">2</span>, col<span class="op">=</span><span class="st">"grey50"</span>,
 main <span class="op">=</span> <span class="st">"Standard PCP"</span><span class="op">)</span></code></pre></div>
 <p><img src="pcp_files/figure-html/unnamed-chunk-1-1.png" width="384" style="display: block; margin: auto;"></p>
 <p>The standard PCP will plot the variables in order of appearance in the data frame. It is obvious from this plot for instance that <code>mpg</code> and <code>disp</code> are negatively correlated. By following the line segments you might be able to see that <code>mpg</code> and <code>hp</code> are also negatively correlated, but but associations with other variables are difficult to ascertain.</p>
 <p>We could use one of the eulerian functions of PairViz to produce orderings of variables where all pairs of variables are adjacent. In the next display, we use <code>hpaths</code>, which gives three hamiltonians where each pair of variables is adjacent at least once.</p>
 <div class="sourceCode" id="cb2"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="va">o</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/hpaths.html">hpaths</a></span><span class="op">(</span><span class="fl">1</span><span class="op">:</span><span class="fu"><a href="https://rdrr.io/r/base/nrow.html">ncol</a></span><span class="op">(</span><span class="va">data</span><span class="op">)</span>,matrix<span class="op">=</span><span class="cn">FALSE</span><span class="op">)</span>
-<span class="fu"><a href="https://rdrr.io/r/graphics/par.html">par</a></span><span class="op">(</span>cex.axis<span class="op">=</span><span class="fl">.7</span><span class="op">)</span>
+<code class="sourceCode R"><span class="va">o</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/hpaths.html">hpaths</a></span><span class="op">(</span><span class="fl">1</span><span class="op">:</span><span class="fu"><a href="https://rdrr.io/r/base/nrow.html" class="external-link">ncol</a></span><span class="op">(</span><span class="va">data</span><span class="op">)</span>,matrix<span class="op">=</span><span class="cn">FALSE</span><span class="op">)</span>
+<span class="fu"><a href="https://rdrr.io/r/graphics/par.html" class="external-link">par</a></span><span class="op">(</span>cex.axis<span class="op">=</span><span class="fl">.7</span><span class="op">)</span>
 <span class="fu"><a href="../reference/pcp.html">pcp</a></span><span class="op">(</span><span class="va">data</span>,order<span class="op">=</span><span class="va">o</span>,horizontal<span class="op">=</span><span class="cn">TRUE</span>,lwd<span class="op">=</span><span class="fl">2</span>, col<span class="op">=</span><span class="st">"grey50"</span>,
 main <span class="op">=</span> <span class="st">"Hamiltonian decomposition"</span><span class="op">)</span></code></pre></div>
 <p><img src="pcp_files/figure-html/unnamed-chunk-2-1.png" width="672" style="display: block; margin: auto;"> From this we see that <code>mpg</code> is also strongly negatively correlated with <code>wt</code>, <code>hp</code> and <code>drat</code>, and that there is not a strong association between <code>mpg</code> and <code>drat</code>.</p>
 <p>To make the patterns in the PCP a bit clearer, we will construct an eulerian where high correlation variables appear early on in the sequence.</p>
 <p>The code below makes a <code>dist</code> with the correlation between variables.</p>
 <div class="sourceCode" id="cb3"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="va">corw</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/stats/dist.html">as.dist</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/stats/cor.html">cor</a></span><span class="op">(</span><span class="va">data</span><span class="op">)</span><span class="op">)</span></code></pre></div>
+<code class="sourceCode R"><span class="va">corw</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/stats/dist.html" class="external-link">as.dist</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/stats/cor.html" class="external-link">cor</a></span><span class="op">(</span><span class="va">data</span><span class="op">)</span><span class="op">)</span></code></pre></div>
 <p>As the function <code>eulerian</code> constructs a path visiting lower weight edges first (and we want to visit high correlation variables first), we form the path as</p>
 <div class="sourceCode" id="cb4"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="va">o</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/eulerian.html">eulerian</a></span><span class="op">(</span><span class="op">-</span><span class="va">corw</span><span class="op">)</span>
@@ -120,91 +100,85 @@ main <span class="op">=</span> <span class="st">"Hamiltonian decomposition"</spa
 <span class="co">#&gt;  [1] 5 2 3 5 6 1 4 6 2 4 3 6 3 1 2 4 5 1</span></code></pre></div>
 <p>Forming the PCP based on this order we get</p>
 <div class="sourceCode" id="cb5"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="fu"><a href="https://rdrr.io/r/graphics/par.html">par</a></span><span class="op">(</span>cex.axis<span class="op">=</span><span class="fl">.7</span><span class="op">)</span>
+<code class="sourceCode R"><span class="fu"><a href="https://rdrr.io/r/graphics/par.html" class="external-link">par</a></span><span class="op">(</span>cex.axis<span class="op">=</span><span class="fl">.7</span><span class="op">)</span>
 <span class="fu"><a href="../reference/pcp.html">pcp</a></span><span class="op">(</span><span class="va">data</span>,order<span class="op">=</span><span class="va">o</span>,horizontal<span class="op">=</span><span class="cn">TRUE</span>,lwd<span class="op">=</span><span class="fl">2</span>, col<span class="op">=</span><span class="st">"grey50"</span>,
 main <span class="op">=</span> <span class="st">"Weighted eulerian"</span><span class="op">)</span></code></pre></div>
 <p><img src="pcp_files/figure-html/unnamed-chunk-5-1.png" width="672" style="display: block; margin: auto;"> The first three panels on the left hand side have many parallel line segments indicative of positively correlated variables. On the right hand side of the PCP, the panels have many high-low line segments which means variables are negatively correlated.</p>
 <p>PairViz has an augmented version of a PCP which shows summary measures for each pair of variables, to assist in interpretation.</p>
 <p>The code below constructs the summary measures, one column for positive correlations, the second for negative correlations.</p>
 <div class="sourceCode" id="cb6"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="va">corw</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/path_weights.html">dist2edge</a></span><span class="op">(</span><span class="va">corw</span><span class="op">)</span>
-<span class="va">edgew</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/cbind.html">cbind</a></span><span class="op">(</span><span class="va">corw</span><span class="op">*</span><span class="op">(</span><span class="va">corw</span><span class="op">&gt;</span><span class="fl">0</span><span class="op">)</span>, <span class="va">corw</span><span class="op">*</span><span class="op">(</span><span class="va">corw</span><span class="op">&lt;</span><span class="fl">0</span><span class="op">)</span><span class="op">)</span>
-<span class="fu"><a href="https://rdrr.io/r/graphics/par.html">par</a></span><span class="op">(</span>cex.axis<span class="op">=</span><span class="fl">.7</span><span class="op">)</span>
+<code class="sourceCode R"><span class="va">corw</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/pathweights.html">dist2edge</a></span><span class="op">(</span><span class="va">corw</span><span class="op">)</span>
+<span class="va">edgew</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/cbind.html" class="external-link">cbind</a></span><span class="op">(</span><span class="va">corw</span><span class="op">*</span><span class="op">(</span><span class="va">corw</span><span class="op">&gt;</span><span class="fl">0</span><span class="op">)</span>, <span class="va">corw</span><span class="op">*</span><span class="op">(</span><span class="va">corw</span><span class="op">&lt;</span><span class="fl">0</span><span class="op">)</span><span class="op">)</span>
+<span class="fu"><a href="https://rdrr.io/r/graphics/par.html" class="external-link">par</a></span><span class="op">(</span>cex.axis<span class="op">=</span><span class="fl">.7</span><span class="op">)</span>
 <span class="fu"><a href="../reference/guided_pcp.html">guided_pcp</a></span><span class="op">(</span><span class="va">data</span>,<span class="va">edgew</span>, path<span class="op">=</span><span class="va">o</span>,pcp.col<span class="op">=</span><span class="st">"grey50"</span> ,lwd<span class="op">=</span><span class="fl">2</span>,
          main<span class="op">=</span><span class="st">"Weighted eulerian with correlation guide"</span>,
-         bar.col <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="st">"lightpink1"</span>,<span class="st">"lightcyan1"</span><span class="op">)</span>,
-         bar.ylim<span class="op">=</span><span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="op">-</span><span class="fl">1</span>,<span class="fl">1</span><span class="op">)</span>,bar.axes<span class="op">=</span><span class="cn">TRUE</span><span class="op">)</span></code></pre></div>
+         bar.col <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"lightpink1"</span>,<span class="st">"lightcyan1"</span><span class="op">)</span>,
+         bar.ylim<span class="op">=</span><span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="op">-</span><span class="fl">1</span>,<span class="fl">1</span><span class="op">)</span>,bar.axes<span class="op">=</span><span class="cn">TRUE</span><span class="op">)</span></code></pre></div>
 <p><img src="pcp_files/figure-html/unnamed-chunk-6-1.png" width="672" style="display: block; margin: auto;"> The above plot shows clearly that correlation generally decreases from left to right.</p>
 <p>If you prefer, omit the guides, but instead colour the panels according to the sign of the correlation.</p>
 <div class="sourceCode" id="cb7"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="va">pathw</span> <span class="op">&lt;-</span>  <span class="fu"><a href="../reference/path_weights.html">path_weights</a></span><span class="op">(</span><span class="va">corw</span>,<span class="va">o</span><span class="op">)</span>
-<span class="va">corcols</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/ifelse.html">ifelse</a></span><span class="op">(</span><span class="va">pathw</span><span class="op">&gt;</span><span class="fl">0</span>, <span class="st">"lightpink1"</span>, <span class="st">"lightcyan"</span><span class="op">)</span>
-<span class="fu"><a href="https://rdrr.io/r/graphics/par.html">par</a></span><span class="op">(</span>cex.axis<span class="op">=</span><span class="fl">.7</span><span class="op">)</span>
+<code class="sourceCode R"><span class="va">pathw</span> <span class="op">&lt;-</span>  <span class="fu"><a href="../reference/pathweights.html">path_weights</a></span><span class="op">(</span><span class="va">corw</span>,<span class="va">o</span><span class="op">)</span>
+<span class="va">corcols</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/ifelse.html" class="external-link">ifelse</a></span><span class="op">(</span><span class="va">pathw</span><span class="op">&gt;</span><span class="fl">0</span>, <span class="st">"lightpink1"</span>, <span class="st">"lightcyan"</span><span class="op">)</span>
+<span class="fu"><a href="https://rdrr.io/r/graphics/par.html" class="external-link">par</a></span><span class="op">(</span>cex.axis<span class="op">=</span><span class="fl">.7</span><span class="op">)</span>
 <span class="fu"><a href="../reference/pcp.html">pcp</a></span><span class="op">(</span><span class="va">data</span>,order<span class="op">=</span><span class="va">o</span>,col<span class="op">=</span><span class="st">"grey50"</span> ,lwd<span class="op">=</span><span class="fl">2</span>,
          main<span class="op">=</span><span class="st">"Weighted eulerian with correlation guide"</span>,
          panel.colors <span class="op">=</span> <span class="va">corcols</span><span class="op">)</span></code></pre></div>
 <p><img src="pcp_files/figure-html/unnamed-chunk-7-1.png" width="672" style="display: block; margin: auto;"></p>
 <p>The guided_pcp function also has a panel.colors argument, so it is possible to keep the guides and also colour the panels.</p>
 </div>
-<div id="scagnostic-guided-plots-of-sleep-data-using-hamiltonians" class="section level2">
-<h2 class="hasAnchor">
-<a href="#scagnostic-guided-plots-of-sleep-data-using-hamiltonians" class="anchor"></a>Scagnostic guided plots of sleep data using Hamiltonians</h2>
+<div class="section level2">
+<h2 id="scagnostic-guided-plots-of-sleep-data-using-hamiltonians">Scagnostic guided plots of sleep data using Hamiltonians<a class="anchor" aria-label="anchor" href="#scagnostic-guided-plots-of-sleep-data-using-hamiltonians"></a>
+</h2>
 <p>We access the data, remove NAs, transform two highly skewed variables, give variables shortnames, and set up a colour vector for plots.</p>
 <div class="sourceCode" id="cb8"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="kw">if</span> <span class="op">(</span><span class="op">!</span><span class="fu"><a href="https://rdrr.io/r/base/ns-load.html">requireNamespace</a></span><span class="op">(</span><span class="st">"alr4"</span>, quietly <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span><span class="op">)</span><span class="op">{</span>
-    <span class="fu"><a href="https://rdrr.io/r/utils/install.packages.html">install.packages</a></span><span class="op">(</span><span class="st">"alr4"</span><span class="op">)</span>
+<code class="sourceCode R"><span class="kw">if</span> <span class="op">(</span><span class="op">!</span><span class="fu"><a href="https://rdrr.io/r/base/ns-load.html" class="external-link">requireNamespace</a></span><span class="op">(</span><span class="st">"alr4"</span>, quietly <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span><span class="op">)</span><span class="op">{</span>
+    <span class="fu"><a href="https://rdrr.io/r/utils/install.packages.html" class="external-link">install.packages</a></span><span class="op">(</span><span class="st">"alr4"</span><span class="op">)</span>
 <span class="op">}</span>
-<span class="co">#&gt; Registered S3 methods overwritten by 'lme4':</span>
-<span class="co">#&gt;   method                          from</span>
-<span class="co">#&gt;   cooks.distance.influence.merMod car </span>
-<span class="co">#&gt;   influence.merMod                car </span>
-<span class="co">#&gt;   dfbeta.influence.merMod         car </span>
-<span class="co">#&gt;   dfbetas.influence.merMod        car</span>
 
-<span class="fu"><a href="https://rdrr.io/r/base/message.html">suppressPackageStartupMessages</a></span><span class="op">(</span><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="http://www.z.umn.edu/alr4ed">alr4</a></span><span class="op">)</span><span class="op">)</span>
-<span class="fu"><a href="https://rdrr.io/r/utils/data.html">data</a></span><span class="op">(</span><span class="va">sleep1</span><span class="op">)</span>
-<span class="va">data</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/stats/na.fail.html">na.omit</a></span><span class="op">(</span><span class="va">sleep1</span><span class="op">)</span>
+<span class="fu"><a href="https://rdrr.io/r/base/message.html" class="external-link">suppressPackageStartupMessages</a></span><span class="op">(</span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="http://www.z.umn.edu/alr4ed" class="external-link">alr4</a></span><span class="op">)</span><span class="op">)</span>
+<span class="fu"><a href="https://rdrr.io/r/utils/data.html" class="external-link">data</a></span><span class="op">(</span><span class="va">sleep1</span><span class="op">)</span>
+<span class="va">data</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/stats/na.fail.html" class="external-link">na.omit</a></span><span class="op">(</span><span class="va">sleep1</span><span class="op">)</span>
 <span class="co"># these vars changed to factors in alr4, change from alr3</span>
-<span class="va">data</span><span class="op">$</span><span class="va">D</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/numeric.html">as.numeric</a></span><span class="op">(</span><span class="va">data</span><span class="op">$</span><span class="va">D</span><span class="op">)</span>
-<span class="va">data</span><span class="op">$</span><span class="va">P</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/numeric.html">as.numeric</a></span><span class="op">(</span><span class="va">data</span><span class="op">$</span><span class="va">P</span><span class="op">)</span>
-<span class="va">data</span><span class="op">$</span><span class="va">SE</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/numeric.html">as.numeric</a></span><span class="op">(</span><span class="va">data</span><span class="op">$</span><span class="va">SE</span><span class="op">)</span>
+<span class="va">data</span><span class="op">$</span><span class="va">D</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/numeric.html" class="external-link">as.numeric</a></span><span class="op">(</span><span class="va">data</span><span class="op">$</span><span class="va">D</span><span class="op">)</span>
+<span class="va">data</span><span class="op">$</span><span class="va">P</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/numeric.html" class="external-link">as.numeric</a></span><span class="op">(</span><span class="va">data</span><span class="op">$</span><span class="va">P</span><span class="op">)</span>
+<span class="va">data</span><span class="op">$</span><span class="va">SE</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/numeric.html" class="external-link">as.numeric</a></span><span class="op">(</span><span class="va">data</span><span class="op">$</span><span class="va">SE</span><span class="op">)</span>
 
 <span class="co"># logging the brain and body weights</span>
-<span class="va">data</span><span class="op">[</span>,<span class="fl">4</span><span class="op">:</span><span class="fl">5</span><span class="op">]</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/Log.html">log</a></span><span class="op">(</span><span class="va">data</span><span class="op">[</span>,<span class="fl">4</span><span class="op">:</span><span class="fl">5</span><span class="op">]</span><span class="op">)</span>
+<span class="va">data</span><span class="op">[</span>,<span class="fl">4</span><span class="op">:</span><span class="fl">5</span><span class="op">]</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/Log.html" class="external-link">log</a></span><span class="op">(</span><span class="va">data</span><span class="op">[</span>,<span class="fl">4</span><span class="op">:</span><span class="fl">5</span><span class="op">]</span><span class="op">)</span>
 
 <span class="co"># short variable names</span>
-<span class="fu"><a href="https://rdrr.io/r/base/colnames.html">colnames</a></span><span class="op">(</span><span class="va">data</span><span class="op">)</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="st">"SW"</span>,<span class="st">"PS"</span> ,<span class="st">"TS"</span> ,<span class="st">"Bd"</span>, <span class="st">"Br"</span>,<span class="st">"L"</span>,<span class="st">"GP"</span>,<span class="st">"P"</span> ,<span class="st">"SE"</span> , <span class="st">"D"</span>  <span class="op">)</span>
+<span class="fu"><a href="https://rdrr.io/r/base/colnames.html" class="external-link">colnames</a></span><span class="op">(</span><span class="va">data</span><span class="op">)</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"SW"</span>,<span class="st">"PS"</span> ,<span class="st">"TS"</span> ,<span class="st">"Bd"</span>, <span class="st">"Br"</span>,<span class="st">"L"</span>,<span class="st">"GP"</span>,<span class="st">"P"</span> ,<span class="st">"SE"</span> , <span class="st">"D"</span>  <span class="op">)</span>
 
 <span class="co"># colours for cases, split Life values into 3 equal sized groups</span>
-<span class="va">cols1</span> <span class="op">&lt;-</span> <span class="fu">scales</span><span class="fu">::</span><span class="fu"><a href="https://scales.r-lib.org/reference/alpha.html">alpha</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="st">"red"</span>,<span class="st">"navy"</span>,<span class="st">"lightblue3"</span>   <span class="op">)</span>,<span class="fl">.6</span><span class="op">)</span>
-<span class="va">cols</span> <span class="op">&lt;-</span> <span class="va">cols1</span><span class="op">[</span><span class="fu"><a href="https://rdrr.io/r/base/cut.html">cut</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/rank.html">rank</a></span><span class="op">(</span><span class="va">data</span><span class="op">$</span><span class="va">L</span><span class="op">)</span>,<span class="fl">3</span>,labels<span class="op">=</span><span class="cn">FALSE</span><span class="op">)</span><span class="op">]</span> </code></pre></div>
+<span class="va">cols1</span> <span class="op">&lt;-</span> <span class="fu">scales</span><span class="fu">::</span><span class="fu"><a href="https://scales.r-lib.org/reference/alpha.html" class="external-link">alpha</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"red"</span>,<span class="st">"navy"</span>,<span class="st">"lightblue3"</span>   <span class="op">)</span>,<span class="fl">.6</span><span class="op">)</span>
+<span class="va">cols</span> <span class="op">&lt;-</span> <span class="va">cols1</span><span class="op">[</span><span class="fu"><a href="https://rdrr.io/r/base/cut.html" class="external-link">cut</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/rank.html" class="external-link">rank</a></span><span class="op">(</span><span class="va">data</span><span class="op">$</span><span class="va">L</span><span class="op">)</span>,<span class="fl">3</span>,labels<span class="op">=</span><span class="cn">FALSE</span><span class="op">)</span><span class="op">]</span> </code></pre></div>
 <p>Calculate scagnostics for the data. <code>sc</code> is a matrix whose rows are values for 9 scagnostics,</p>
 <div class="sourceCode" id="cb9"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="http://www.rforge.net/scagnostics/">scagnostics</a></span><span class="op">)</span>
+<code class="sourceCode R"><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="http://www.rforge.net/scagnostics/" class="external-link">scagnostics</a></span><span class="op">)</span>
 <span class="co">#&gt; Loading required package: rJava</span>
-<span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va">RColorBrewer</span><span class="op">)</span>
-<span class="va">sc</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/pkg/scagnostics/man/scagnostics.html">scagnostics</a></span><span class="op">(</span><span class="va">data</span><span class="op">)</span>
-<span class="va">scags</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/colnames.html">rownames</a></span><span class="op">(</span><span class="va">sc</span><span class="op">)</span>
+<span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va">RColorBrewer</span><span class="op">)</span>
+<span class="va">sc</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/pkg/scagnostics/man/scagnostics.html" class="external-link">scagnostics</a></span><span class="op">(</span><span class="va">data</span><span class="op">)</span>
+<span class="va">scags</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/colnames.html" class="external-link">rownames</a></span><span class="op">(</span><span class="va">sc</span><span class="op">)</span>
 <span class="va">scags</span>
 <span class="co">#&gt; [1] "Outlying"  "Skewed"    "Clumpy"    "Sparse"    "Striated"  "Convex"   </span>
 <span class="co">#&gt; [7] "Skinny"    "Stringy"   "Monotonic"</span></code></pre></div>
 <p>As we will make plots involving different scagnostics, we will assign colours to scagnostics, for consistency across plots.</p>
 <div class="sourceCode" id="cb10"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="va">scag_cols</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/rev.html">rev</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/pkg/RColorBrewer/man/ColorBrewer.html">brewer.pal</a></span><span class="op">(</span><span class="fl">9</span>, <span class="st">"Pastel1"</span><span class="op">)</span><span class="op">)</span>
-<span class="fu"><a href="https://rdrr.io/r/base/names.html">names</a></span><span class="op">(</span><span class="va">scag_cols</span><span class="op">)</span> <span class="op">&lt;-</span> <span class="va">scags</span></code></pre></div>
+<code class="sourceCode R"><span class="va">scag_cols</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/rev.html" class="external-link">rev</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/pkg/RColorBrewer/man/ColorBrewer.html" class="external-link">brewer.pal</a></span><span class="op">(</span><span class="fl">9</span>, <span class="st">"Pastel1"</span><span class="op">)</span><span class="op">)</span>
+<span class="fu"><a href="https://rdrr.io/r/base/names.html" class="external-link">names</a></span><span class="op">(</span><span class="va">scag_cols</span><span class="op">)</span> <span class="op">&lt;-</span> <span class="va">scags</span></code></pre></div>
 <p>Define a utility function which returns a subset of scagnostics, retaining the class attribute.</p>
 <div class="sourceCode" id="cb11"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="va">select_scagnostics</span> <span class="op">&lt;-</span> <span class="kw">function</span><span class="op">(</span><span class="va">sc</span>,<span class="va">names</span><span class="op">)</span><span class="op">{</span>
     <span class="va">sc1</span> <span class="op">&lt;-</span> <span class="va">sc</span><span class="op">[</span><span class="va">names</span>,<span class="op">]</span>
-    <span class="fu"><a href="https://rdrr.io/r/base/class.html">class</a></span><span class="op">(</span><span class="va">sc1</span><span class="op">)</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/class.html">class</a></span><span class="op">(</span><span class="va">sc</span><span class="op">)</span>
-    <span class="kw"><a href="https://rdrr.io/r/base/function.html">return</a></span><span class="op">(</span><span class="va">sc1</span><span class="op">)</span>
+    <span class="fu"><a href="https://rdrr.io/r/base/class.html" class="external-link">class</a></span><span class="op">(</span><span class="va">sc1</span><span class="op">)</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/class.html" class="external-link">class</a></span><span class="op">(</span><span class="va">sc</span><span class="op">)</span>
+    <span class="kw"><a href="https://rdrr.io/r/base/function.html" class="external-link">return</a></span><span class="op">(</span><span class="va">sc1</span><span class="op">)</span>
     <span class="op">}</span></code></pre></div>
 <p>Consider the outlying scagnostic. Suppose we want to construct a PCP, each variable appearing once, where pairs of variables with a high outlier score appear adjacently in the sequence.</p>
 <div class="sourceCode" id="cb12"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="va">scOut</span> <span class="op">&lt;-</span> <span class="fu">select_scagnostics</span><span class="op">(</span><span class="va">sc</span>,<span class="st">"Outlying"</span><span class="op">)</span>
-<span class="va">dOut</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/path_weights.html">edge2dist</a></span><span class="op">(</span><span class="va">scOut</span><span class="op">)</span> <span class="co"># dOut is a dist</span>
-<span class="va">dOut</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/matrix.html">as.matrix</a></span><span class="op">(</span><span class="va">dOut</span><span class="op">)</span>
-<span class="fu"><a href="https://rdrr.io/r/base/colnames.html">rownames</a></span><span class="op">(</span><span class="va">dOut</span><span class="op">)</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/colnames.html">colnames</a></span><span class="op">(</span><span class="va">dOut</span><span class="op">)</span><span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/names.html">names</a></span><span class="op">(</span><span class="va">data</span><span class="op">)</span></code></pre></div>
+<span class="va">dOut</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/pathweights.html">edge2dist</a></span><span class="op">(</span><span class="va">scOut</span><span class="op">)</span> <span class="co"># dOut is a dist</span>
+<span class="va">dOut</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/pkg/TSP/man/ATSP.html" class="external-link">as.matrix</a></span><span class="op">(</span><span class="va">dOut</span><span class="op">)</span>
+<span class="fu"><a href="https://rdrr.io/r/base/colnames.html" class="external-link">rownames</a></span><span class="op">(</span><span class="va">dOut</span><span class="op">)</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/colnames.html" class="external-link">colnames</a></span><span class="op">(</span><span class="va">dOut</span><span class="op">)</span><span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/names.html" class="external-link">names</a></span><span class="op">(</span><span class="va">data</span><span class="op">)</span></code></pre></div>
 <p><code>dOut</code> is a symmetric matrix where each entry gives the outlying score for the scatterplot labelled by the row and column names. Note that the function <code>edge2dist</code> relies on the fact that objects of class scagnostics are in order (1,2), (1,3), (2,3),(1,4) etc</p>
 <p>To find the variable ordering with the highest (or nearly highest) total outlier score use one of</p>
 <div class="sourceCode" id="cb13"><pre class="downlit sourceCode r">
@@ -213,33 +187,33 @@ main <span class="op">=</span> <span class="st">"Weighted eulerian"</span><span 
 <span class="va">o</span> <span class="op">&lt;-</span><span class="fu"><a href="../reference/order_tsp.html">order_tsp</a></span><span class="op">(</span><span class="op">-</span><span class="va">dOut</span><span class="op">)</span></code></pre></div>
 <p>The first call to <code>order_best</code> above finds the best ordering by a brute force evaluation of all 10! factorial permutations, and so this is a bit slow. Without the <code>maxexact=10</code> input, order_best evaluates only a sample of permulations for sequences of length above 9. order_tsp uses a TSP solver from package TSP. We will use the result of the first call to order_best, which gives</p>
 <div class="sourceCode" id="cb14"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="va">o</span> <span class="op">&lt;-</span><span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span> <span class="fl">2</span> , <span class="fl">4</span> , <span class="fl">1</span>,  <span class="fl">5</span> , <span class="fl">6</span>,  <span class="fl">7</span> , <span class="fl">3</span> , <span class="fl">8</span>,  <span class="fl">9</span>, <span class="fl">10</span><span class="op">)</span></code></pre></div>
+<code class="sourceCode R"><span class="va">o</span> <span class="op">&lt;-</span><span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span> <span class="fl">2</span> , <span class="fl">4</span> , <span class="fl">1</span>,  <span class="fl">5</span> , <span class="fl">6</span>,  <span class="fl">7</span> , <span class="fl">3</span> , <span class="fl">8</span>,  <span class="fl">9</span>, <span class="fl">10</span><span class="op">)</span></code></pre></div>
 <p>The guided PCP based on this ordering is</p>
 <div class="sourceCode" id="cb15"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="fu"><a href="https://rdrr.io/r/graphics/par.html">par</a></span><span class="op">(</span>tcl <span class="op">=</span> <span class="op">-</span><span class="fl">.2</span>, cex.axis<span class="op">=</span><span class="fl">.8</span>,mgp<span class="op">=</span><span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="fl">3</span>,<span class="fl">.3</span>,<span class="fl">0</span><span class="op">)</span><span class="op">)</span>
+<code class="sourceCode R"><span class="fu"><a href="https://rdrr.io/r/graphics/par.html" class="external-link">par</a></span><span class="op">(</span>tcl <span class="op">=</span> <span class="op">-</span><span class="fl">.2</span>, cex.axis<span class="op">=</span><span class="fl">.8</span>,mgp<span class="op">=</span><span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">3</span>,<span class="fl">.3</span>,<span class="fl">0</span><span class="op">)</span><span class="op">)</span>
 <span class="fu"><a href="../reference/guided_pcp.html">guided_pcp</a></span><span class="op">(</span><span class="va">data</span>,<span class="va">scOut</span>, path<span class="op">=</span><span class="va">o</span>,pcp.col<span class="op">=</span><span class="va">cols</span>,lwd<span class="op">=</span><span class="fl">1.4</span>,
-         main<span class="op">=</span> <span class="st">"Best Hamiltonian for outliers"</span>,bar.col <span class="op">=</span> <span class="va">scag_cols</span><span class="op">[</span><span class="st">"Outlying"</span><span class="op">]</span>,legend<span class="op">=</span><span class="cn">FALSE</span>,bar.axes<span class="op">=</span><span class="cn">TRUE</span>,bar.ylim<span class="op">=</span><span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="fl">0</span>,<span class="fu"><a href="https://rdrr.io/r/base/Extremes.html">max</a></span><span class="op">(</span><span class="va">scOut</span><span class="op">)</span><span class="op">)</span><span class="op">)</span></code></pre></div>
+         main<span class="op">=</span> <span class="st">"Best Hamiltonian for outliers"</span>,bar.col <span class="op">=</span> <span class="va">scag_cols</span><span class="op">[</span><span class="st">"Outlying"</span><span class="op">]</span>,legend<span class="op">=</span><span class="cn">FALSE</span>,bar.axes<span class="op">=</span><span class="cn">TRUE</span>,bar.ylim<span class="op">=</span><span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">0</span>,<span class="fu"><a href="https://rdrr.io/r/base/Extremes.html" class="external-link">max</a></span><span class="op">(</span><span class="va">scOut</span><span class="op">)</span><span class="op">)</span><span class="op">)</span></code></pre></div>
 <p><img src="pcp_files/figure-html/unnamed-chunk-15-1.png" width="672" style="display: block; margin: auto;"></p>
 <p>Notice that panels involving discrete-valued variables P,SE and D score zero on the outlying index. The L-GP pair of variables has the highest outlier score and two outliers are evident. The outlier cases are the two species (Human and Asian Elephant) with the highest life expectancy (L). Asian Elephant also has the highest value of gestation time (GP)</p>
 <div class="sourceCode" id="cb16"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="va">outliers</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/order.html">order</a></span><span class="op">(</span><span class="va">data</span><span class="op">$</span><span class="va">L</span>, decreasing<span class="op">=</span><span class="cn">T</span><span class="op">)</span><span class="op">[</span><span class="fl">1</span><span class="op">:</span><span class="fl">2</span><span class="op">]</span>
-<span class="fu"><a href="https://rdrr.io/r/base/colnames.html">rownames</a></span><span class="op">(</span><span class="va">data</span><span class="op">)</span><span class="op">[</span><span class="va">outliers</span><span class="op">]</span>
+<code class="sourceCode R"><span class="va">outliers</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/order.html" class="external-link">order</a></span><span class="op">(</span><span class="va">data</span><span class="op">$</span><span class="va">L</span>, decreasing<span class="op">=</span><span class="cn">T</span><span class="op">)</span><span class="op">[</span><span class="fl">1</span><span class="op">:</span><span class="fl">2</span><span class="op">]</span>
+<span class="fu"><a href="https://rdrr.io/r/base/colnames.html" class="external-link">rownames</a></span><span class="op">(</span><span class="va">data</span><span class="op">)</span><span class="op">[</span><span class="va">outliers</span><span class="op">]</span>
 <span class="co">#&gt; [1] "Human"          "Asian_elephant"</span></code></pre></div>
 <p>For future use we will construct a colour vector marking these two outliers.</p>
 <div class="sourceCode" id="cb17"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="va">colOut</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/rep.html">rep</a></span><span class="op">(</span><span class="st">"grey50"</span>, <span class="fu"><a href="https://rdrr.io/r/base/nrow.html">nrow</a></span><span class="op">(</span><span class="va">data</span><span class="op">)</span><span class="op">)</span>
+<code class="sourceCode R"><span class="va">colOut</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/rep.html" class="external-link">rep</a></span><span class="op">(</span><span class="st">"grey50"</span>, <span class="fu"><a href="https://rdrr.io/r/base/nrow.html" class="external-link">nrow</a></span><span class="op">(</span><span class="va">data</span><span class="op">)</span><span class="op">)</span>
 <span class="va">colOut</span><span class="op">[</span><span class="va">outliers</span><span class="op">[</span><span class="fl">1</span><span class="op">]</span><span class="op">]</span> <span class="op">&lt;-</span> <span class="st">"red"</span> <span class="co"># Human</span>
 <span class="va">colOut</span><span class="op">[</span><span class="va">outliers</span><span class="op">[</span><span class="fl">2</span><span class="op">]</span><span class="op">]</span> <span class="op">&lt;-</span> <span class="st">"blue"</span></code></pre></div>
 <p>Suppose next we want to pick the ordering of PCP axes where high scores on the two measures Striated and Sparse are obtained.</p>
 <div class="sourceCode" id="cb18"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="va">scSS</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/t.html">t</a></span><span class="op">(</span><span class="fu">select_scagnostics</span><span class="op">(</span><span class="va">sc</span>,<span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="st">"Striated"</span>, <span class="st">"Sparse"</span><span class="op">)</span><span class="op">)</span><span class="op">)</span></code></pre></div>
+<code class="sourceCode R"><span class="va">scSS</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/t.html" class="external-link">t</a></span><span class="op">(</span><span class="fu">select_scagnostics</span><span class="op">(</span><span class="va">sc</span>,<span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"Striated"</span>, <span class="st">"Sparse"</span><span class="op">)</span><span class="op">)</span><span class="op">)</span></code></pre></div>
 <p>As we did with the calculation for Outliers, we can turn <code>scSS</code> into a distance matrix and then use one of <code>order_best</code> or <code>order_tsp</code> to produces the best ordering.</p>
 <div class="sourceCode" id="cb19"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="va">dSS</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/path_weights.html">edge2dist</a></span><span class="op">(</span><span class="va">scSS</span><span class="op">[</span>,<span class="fl">1</span><span class="op">]</span><span class="op">)</span>  <span class="op">+</span> <span class="fu"><a href="../reference/path_weights.html">edge2dist</a></span><span class="op">(</span><span class="va">scSS</span><span class="op">[</span>,<span class="fl">2</span><span class="op">]</span><span class="op">)</span> 
+<code class="sourceCode R"><span class="va">dSS</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/pathweights.html">edge2dist</a></span><span class="op">(</span><span class="va">scSS</span><span class="op">[</span>,<span class="fl">1</span><span class="op">]</span><span class="op">)</span>  <span class="op">+</span> <span class="fu"><a href="../reference/pathweights.html">edge2dist</a></span><span class="op">(</span><span class="va">scSS</span><span class="op">[</span>,<span class="fl">2</span><span class="op">]</span><span class="op">)</span> 
 <span class="co"># You might think edge2dist(scSS[,1]+ scSS[,2]) would work, but as scSS[,1]+ scSS[,2] is</span>
 <span class="co"># not of class scagnostics, edge2dist will not fill the dist in the correct order</span>
-<span class="va">dSS</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/matrix.html">as.matrix</a></span><span class="op">(</span><span class="va">dSS</span><span class="op">)</span>
-<span class="fu"><a href="https://rdrr.io/r/base/colnames.html">rownames</a></span><span class="op">(</span><span class="va">dSS</span><span class="op">)</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/colnames.html">colnames</a></span><span class="op">(</span><span class="va">dSS</span><span class="op">)</span><span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/names.html">names</a></span><span class="op">(</span><span class="va">data</span><span class="op">)</span>
+<span class="va">dSS</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/pkg/TSP/man/ATSP.html" class="external-link">as.matrix</a></span><span class="op">(</span><span class="va">dSS</span><span class="op">)</span>
+<span class="fu"><a href="https://rdrr.io/r/base/colnames.html" class="external-link">rownames</a></span><span class="op">(</span><span class="va">dSS</span><span class="op">)</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/colnames.html" class="external-link">colnames</a></span><span class="op">(</span><span class="va">dSS</span><span class="op">)</span><span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/names.html" class="external-link">names</a></span><span class="op">(</span><span class="va">data</span><span class="op">)</span>
 <span class="fu"><a href="../reference/order_best.html">order_best</a></span><span class="op">(</span><span class="op">-</span><span class="va">dSS</span>,maxexact<span class="op">=</span><span class="fl">10</span><span class="op">)</span></code></pre></div>
 <p>A shortcut calculation is</p>
 <div class="sourceCode" id="cb20"><pre class="downlit sourceCode r">
@@ -248,19 +222,19 @@ main <span class="op">=</span> <span class="st">"Weighted eulerian"</span><span 
 <span class="fu"><a href="../reference/find_path.html">find_path</a></span><span class="op">(</span><span class="op">-</span><span class="va">scSS</span>,   <span class="va">order_best</span><span class="op">)</span> <span class="co"># for a nearly "best" path</span></code></pre></div>
 <p>The best path gives</p>
 <div class="sourceCode" id="cb21"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="va">o</span> <span class="op">&lt;-</span>  <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="fl">4</span>, <span class="fl">10</span> , <span class="fl">2</span> , <span class="fl">9</span> , <span class="fl">1</span>,  <span class="fl">7</span> , <span class="fl">8</span>,  <span class="fl">6</span> , <span class="fl">5</span> ,<span class="fl">3</span><span class="op">)</span> </code></pre></div>
+<code class="sourceCode R"><span class="va">o</span> <span class="op">&lt;-</span>  <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">4</span>, <span class="fl">10</span> , <span class="fl">2</span> , <span class="fl">9</span> , <span class="fl">1</span>,  <span class="fl">7</span> , <span class="fl">8</span>,  <span class="fl">6</span> , <span class="fl">5</span> ,<span class="fl">3</span><span class="op">)</span> </code></pre></div>
 <p>The guided PCP based on this ordering is</p>
 <div class="sourceCode" id="cb22"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="fu"><a href="https://rdrr.io/r/graphics/par.html">par</a></span><span class="op">(</span>tcl <span class="op">=</span> <span class="op">-</span><span class="fl">.2</span>, cex.axis<span class="op">=</span><span class="fl">.8</span>,mgp<span class="op">=</span><span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="fl">3</span>,<span class="fl">.3</span>,<span class="fl">0</span><span class="op">)</span><span class="op">)</span>
+<code class="sourceCode R"><span class="fu"><a href="https://rdrr.io/r/graphics/par.html" class="external-link">par</a></span><span class="op">(</span>tcl <span class="op">=</span> <span class="op">-</span><span class="fl">.2</span>, cex.axis<span class="op">=</span><span class="fl">.8</span>,mgp<span class="op">=</span><span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">3</span>,<span class="fl">.3</span>,<span class="fl">0</span><span class="op">)</span><span class="op">)</span>
 <span class="fu"><a href="../reference/guided_pcp.html">guided_pcp</a></span><span class="op">(</span><span class="va">data</span>,<span class="va">scSS</span>, path<span class="op">=</span><span class="va">o</span>,pcp.col<span class="op">=</span><span class="va">cols</span>,lwd<span class="op">=</span><span class="fl">1.4</span>,
          main<span class="op">=</span> <span class="st">"Best Hamiltonian for Striated + Sparse"</span>,
-         bar.col <span class="op">=</span> <span class="va">scag_cols</span><span class="op">[</span><span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="st">"Striated"</span>, <span class="st">"Sparse"</span><span class="op">)</span><span class="op">]</span>,
-         legend<span class="op">=</span><span class="cn">FALSE</span>,bar.axes<span class="op">=</span><span class="cn">TRUE</span>,bar.ylim<span class="op">=</span><span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="fl">0</span>,<span class="fl">.6</span><span class="op">)</span><span class="op">)</span></code></pre></div>
+         bar.col <span class="op">=</span> <span class="va">scag_cols</span><span class="op">[</span><span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"Striated"</span>, <span class="st">"Sparse"</span><span class="op">)</span><span class="op">]</span>,
+         legend<span class="op">=</span><span class="cn">FALSE</span>,bar.axes<span class="op">=</span><span class="cn">TRUE</span>,bar.ylim<span class="op">=</span><span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">0</span>,<span class="fl">.6</span><span class="op">)</span><span class="op">)</span></code></pre></div>
 <p><img src="pcp_files/figure-html/unnamed-chunk-22-1.png" width="672" style="display: block; margin: auto;"> The combined Striated and Sparse index rewards panels with discrete variables, as all panels with an index level above 0.4 involve a discrete variable.</p>
 </div>
-<div id="scagnostic-guided-plots-of-sleep-data-using-eulerians" class="section level2">
-<h2 class="hasAnchor">
-<a href="#scagnostic-guided-plots-of-sleep-data-using-eulerians" class="anchor"></a>Scagnostic guided plots of sleep data using Eulerians</h2>
+<div class="section level2">
+<h2 id="scagnostic-guided-plots-of-sleep-data-using-eulerians">Scagnostic guided plots of sleep data using Eulerians<a class="anchor" aria-label="anchor" href="#scagnostic-guided-plots-of-sleep-data-using-eulerians"></a>
+</h2>
 <p>For the sleep data there are 10 variables so an Eulerian path (which places all pairs of variables adjacently) will be rather long. Here is the Eulerian driven by the Outlyingness measure.</p>
 <div class="sourceCode" id="cb23"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="va">o</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/find_path.html">find_path</a></span><span class="op">(</span><span class="op">-</span><span class="va">scOut</span>, <span class="va">eulerian</span><span class="op">)</span>
@@ -269,104 +243,101 @@ main <span class="op">=</span> <span class="st">"Weighted eulerian"</span><span 
 <span class="co">#&gt; [26]  9  2  3  5  2  8  1  3  8  4  9  3 10  2  5  8  7 10  4 10  5  9  8 10  9</span></code></pre></div>
 <p>The Outlying scores for the pairs of variables specified by this path are</p>
 <div class="sourceCode" id="cb24"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="va">pathw</span> <span class="op">&lt;-</span>  <span class="fu"><a href="../reference/path_weights.html">path_weights</a></span><span class="op">(</span><span class="va">scOut</span>,<span class="va">o</span><span class="op">)</span>
-<span class="fu"><a href="https://rdrr.io/r/utils/head.html">head</a></span><span class="op">(</span><span class="va">pathw</span><span class="op">)</span>
+<code class="sourceCode R"><span class="va">pathw</span> <span class="op">&lt;-</span>  <span class="fu"><a href="../reference/pathweights.html">path_weights</a></span><span class="op">(</span><span class="va">scOut</span>,<span class="va">o</span><span class="op">)</span>
+<span class="fu"><a href="https://rdrr.io/r/utils/head.html" class="external-link">head</a></span><span class="op">(</span><span class="va">pathw</span><span class="op">)</span>
 <span class="co">#&gt;  L * GP  Bd * L SW * Bd  SW * L  Br * L Br * GP </span>
 <span class="co">#&gt;   0.521   0.341   0.360   0.199   0.317   0.231</span></code></pre></div>
 <div class="sourceCode" id="cb25"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="fu"><a href="https://rdrr.io/r/graphics/par.html">par</a></span><span class="op">(</span>tcl <span class="op">=</span> <span class="op">-</span><span class="fl">.2</span>, cex.axis<span class="op">=</span><span class="fl">.6</span>,mgp<span class="op">=</span><span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="fl">3</span>,<span class="fl">.3</span>,<span class="fl">0</span><span class="op">)</span><span class="op">)</span>
+<code class="sourceCode R"><span class="fu"><a href="https://rdrr.io/r/graphics/par.html" class="external-link">par</a></span><span class="op">(</span>tcl <span class="op">=</span> <span class="op">-</span><span class="fl">.2</span>, cex.axis<span class="op">=</span><span class="fl">.6</span>,mgp<span class="op">=</span><span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">3</span>,<span class="fl">.3</span>,<span class="fl">0</span><span class="op">)</span><span class="op">)</span>
 <span class="fu"><a href="../reference/guided_pcp.html">guided_pcp</a></span><span class="op">(</span><span class="va">data</span>,<span class="va">scOut</span>, path<span class="op">=</span><span class="va">o</span><span class="op">[</span><span class="fl">1</span><span class="op">:</span><span class="fl">25</span><span class="op">]</span>,pcp.col<span class="op">=</span><span class="va">cols</span>,lwd<span class="op">=</span><span class="fl">1.4</span>,
          main<span class="op">=</span> <span class="st">"First 25: Eulerian for Outlying"</span>,
          bar.col <span class="op">=</span> <span class="va">scag_cols</span><span class="op">[</span><span class="st">"Outlying"</span><span class="op">]</span>,
-         legend<span class="op">=</span><span class="cn">FALSE</span>,bar.axes<span class="op">=</span><span class="cn">TRUE</span>,bar.ylim<span class="op">=</span><span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="fl">0</span>,<span class="fu"><a href="https://rdrr.io/r/base/Extremes.html">max</a></span><span class="op">(</span><span class="va">scOut</span><span class="op">)</span><span class="op">)</span><span class="op">)</span>
+         legend<span class="op">=</span><span class="cn">FALSE</span>,bar.axes<span class="op">=</span><span class="cn">TRUE</span>,bar.ylim<span class="op">=</span><span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">0</span>,<span class="fu"><a href="https://rdrr.io/r/base/Extremes.html" class="external-link">max</a></span><span class="op">(</span><span class="va">scOut</span><span class="op">)</span><span class="op">)</span><span class="op">)</span>
 
 <span class="fu"><a href="../reference/guided_pcp.html">guided_pcp</a></span><span class="op">(</span><span class="va">data</span>,<span class="va">scOut</span>, path<span class="op">=</span><span class="va">o</span><span class="op">[</span><span class="fl">25</span><span class="op">:</span><span class="fl">50</span><span class="op">]</span>,pcp.col<span class="op">=</span><span class="va">cols</span>,lwd<span class="op">=</span><span class="fl">1.4</span>,
          main<span class="op">=</span> <span class="st">"Last 26: Eulerian for Outlying"</span>,
          bar.col <span class="op">=</span> <span class="va">scag_cols</span><span class="op">[</span><span class="st">"Outlying"</span><span class="op">]</span>,
-         legend<span class="op">=</span><span class="cn">FALSE</span>,bar.axes<span class="op">=</span><span class="cn">TRUE</span>,bar.ylim<span class="op">=</span><span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="fl">0</span>,<span class="fu"><a href="https://rdrr.io/r/base/Extremes.html">max</a></span><span class="op">(</span><span class="va">scOut</span><span class="op">)</span><span class="op">)</span><span class="op">)</span></code></pre></div>
+         legend<span class="op">=</span><span class="cn">FALSE</span>,bar.axes<span class="op">=</span><span class="cn">TRUE</span>,bar.ylim<span class="op">=</span><span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">0</span>,<span class="fu"><a href="https://rdrr.io/r/base/Extremes.html" class="external-link">max</a></span><span class="op">(</span><span class="va">scOut</span><span class="op">)</span><span class="op">)</span><span class="op">)</span></code></pre></div>
 <p><img src="pcp_files/figure-html/unnamed-chunk-25-1.png" width="672" style="display: block; margin: auto;"><img src="pcp_files/figure-html/unnamed-chunk-25-2.png" width="672" style="display: block; margin: auto;"></p>
 <p>Many of the Outlying scores are zero, in fact the last 25 scores are zero. We see that GP-L has the highest overall Outlying score, and the higher Outlying scores involve the variables L,GP, Bd, SW,Br only.</p>
 </div>
-<div id="focus-on-interesting-plots" class="section level2">
-<h2 class="hasAnchor">
-<a href="#focus-on-interesting-plots" class="anchor"></a>Focus on interesting plots</h2>
+<div class="section level2">
+<h2 id="focus-on-interesting-plots">Focus on interesting plots<a class="anchor" aria-label="anchor" href="#focus-on-interesting-plots"></a>
+</h2>
 <p>The Eulerian path visiting all pairs of variables for the sleep data is of length 10. One way to focus on “interesting”" pairs (measuring interesting by outlyingness here) is the weighted Eulerian, where interesting pairs are visited early in the sequence, as above. Another approach is to drop all pairs of variables which are below some interestingness threshold, and construct a plot showing the rest. Here we will construct a PCP showing pairs of variables whose outlier score is .2 or higher.</p>
 <p>We will do this by constructing a graph containing variable pairs whose outlier score is .2 or higher, and then forming an Eulerian of this graph. One way to form the graph is to build the complete graph based on <code>dOut</code>, the matrix of outlier scores, and then remove low weight edges.</p>
 <div class="sourceCode" id="cb26"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="va">g</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/mk_complete_graph.html">mk_complete_graph</a></span><span class="op">(</span><span class="va">dOut</span><span class="op">)</span></code></pre></div>
 <p>Then form a graph from <code>g</code> keeping edges whose weight is .2 or above. The function <code>dn_graph</code> also deletes nodes with no edges.</p>
 <div class="sourceCode" id="cb27"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="va">g1</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/knn_graph.html">dn_graph</a></span><span class="op">(</span><span class="va">g</span>,<span class="fl">.2</span> , test<span class="op">=</span><span class="va">`&gt;=`</span><span class="op">)</span></code></pre></div>
+<code class="sourceCode R"><span class="va">g1</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/specialg.html">dn_graph</a></span><span class="op">(</span><span class="va">g</span>,<span class="fl">.2</span> , test<span class="op">=</span><span class="va">`&gt;=`</span><span class="op">)</span></code></pre></div>
 <p>A utility function for plotting a graph:</p>
 <div class="sourceCode" id="cb28"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="fu"><a href="https://rdrr.io/r/base/ns-load.html">requireNamespace</a></span><span class="op">(</span><span class="st">"igraph"</span><span class="op">)</span>
+<code class="sourceCode R"><span class="fu"><a href="https://rdrr.io/r/base/ns-load.html" class="external-link">requireNamespace</a></span><span class="op">(</span><span class="st">"igraph"</span><span class="op">)</span>
 <span class="co">#&gt; Loading required namespace: igraph</span>
-<span class="va">igplot</span> <span class="op">&lt;-</span> <span class="kw">function</span><span class="op">(</span><span class="va">g</span>,<span class="va">weights</span><span class="op">=</span><span class="cn">FALSE</span>,<span class="va">layout</span><span class="op">=</span><span class="fu">igraph</span><span class="fu">::</span><span class="va"><a href="https://rdrr.io/pkg/igraph/man/layout_in_circle.html">layout_in_circle</a></span>, 
+<span class="va">igplot</span> <span class="op">&lt;-</span> <span class="kw">function</span><span class="op">(</span><span class="va">g</span>,<span class="va">weights</span><span class="op">=</span><span class="cn">FALSE</span>,<span class="va">layout</span><span class="op">=</span><span class="fu">igraph</span><span class="fu">::</span><span class="va"><a href="https://rdrr.io/pkg/igraph/man/layout_in_circle.html" class="external-link">layout_in_circle</a></span>, 
                    <span class="va">vertex.size</span><span class="op">=</span><span class="fl">60</span>, <span class="va">vertex.color</span><span class="op">=</span><span class="st">"lightblue"</span>,<span class="va">...</span><span class="op">)</span><span class="op">{</span>
-    <span class="va">g</span> <span class="op">&lt;-</span> <span class="fu">igraph</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/igraph/man/graph_from_graphnel.html">graph_from_graphnel</a></span><span class="op">(</span><span class="fu">as</span><span class="op">(</span><span class="va">g</span>, <span class="st">"graphNEL"</span><span class="op">)</span><span class="op">)</span>
-    <span class="va">op</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/graphics/par.html">par</a></span><span class="op">(</span>mar<span class="op">=</span><span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="fl">1</span>,<span class="fl">1</span>,<span class="fl">1</span>,<span class="fl">1</span><span class="op">)</span><span class="op">)</span>
+    <span class="va">g</span> <span class="op">&lt;-</span> <span class="fu">igraph</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/igraph/man/graph_from_graphnel.html" class="external-link">graph_from_graphnel</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/methods/as.html" class="external-link">as</a></span><span class="op">(</span><span class="va">g</span>, <span class="st">"graphNEL"</span><span class="op">)</span><span class="op">)</span>
+    <span class="va">op</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/graphics/par.html" class="external-link">par</a></span><span class="op">(</span>mar<span class="op">=</span><span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">1</span>,<span class="fl">1</span>,<span class="fl">1</span>,<span class="fl">1</span><span class="op">)</span><span class="op">)</span>
     <span class="kw">if</span> <span class="op">(</span><span class="va">weights</span><span class="op">)</span><span class="op">{</span>
-      <span class="va">ew</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/Round.html">round</a></span><span class="op">(</span><span class="fu">igraph</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/igraph/man/edge_attr.html">get.edge.attribute</a></span><span class="op">(</span><span class="va">g</span>,<span class="st">"weight"</span><span class="op">)</span>,<span class="fl">3</span><span class="op">)</span>  
-      <span class="fu">igraph</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/igraph/man/plot.igraph.html">plot.igraph</a></span><span class="op">(</span><span class="va">g</span>,layout<span class="op">=</span><span class="va">layout</span>,edge.label<span class="op">=</span><span class="va">ew</span>,vertex.size<span class="op">=</span><span class="va">vertex.size</span>,vertex.color<span class="op">=</span><span class="va">vertex.color</span>,<span class="va">...</span><span class="op">)</span>
+      <span class="va">ew</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/Round.html" class="external-link">round</a></span><span class="op">(</span><span class="fu">igraph</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/igraph/man/edge_attr.html" class="external-link">get.edge.attribute</a></span><span class="op">(</span><span class="va">g</span>,<span class="st">"weight"</span><span class="op">)</span>,<span class="fl">3</span><span class="op">)</span>  
+      <span class="fu">igraph</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/igraph/man/plot.igraph.html" class="external-link">plot.igraph</a></span><span class="op">(</span><span class="va">g</span>,layout<span class="op">=</span><span class="va">layout</span>,edge.label<span class="op">=</span><span class="va">ew</span>,vertex.size<span class="op">=</span><span class="va">vertex.size</span>,vertex.color<span class="op">=</span><span class="va">vertex.color</span>,<span class="va">...</span><span class="op">)</span>
     <span class="op">}</span>
     <span class="kw">else</span>
-    <span class="fu">igraph</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/igraph/man/plot.igraph.html">plot.igraph</a></span><span class="op">(</span><span class="va">g</span>,layout<span class="op">=</span><span class="va">layout</span>,vertex.size<span class="op">=</span><span class="va">vertex.size</span>,vertex.color<span class="op">=</span><span class="va">vertex.color</span>,<span class="va">...</span><span class="op">)</span>
-    <span class="fu"><a href="https://rdrr.io/r/graphics/par.html">par</a></span><span class="op">(</span><span class="va">op</span><span class="op">)</span>
+    <span class="fu">igraph</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/igraph/man/plot.igraph.html" class="external-link">plot.igraph</a></span><span class="op">(</span><span class="va">g</span>,layout<span class="op">=</span><span class="va">layout</span>,vertex.size<span class="op">=</span><span class="va">vertex.size</span>,vertex.color<span class="op">=</span><span class="va">vertex.color</span>,<span class="va">...</span><span class="op">)</span>
+    <span class="fu"><a href="https://rdrr.io/r/graphics/par.html" class="external-link">par</a></span><span class="op">(</span><span class="va">op</span><span class="op">)</span>
 <span class="op">}</span></code></pre></div>
 <p>and then the plot</p>
 <div class="sourceCode" id="cb29"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="fu">igplot</span><span class="op">(</span><span class="va">g1</span>, weights<span class="op">=</span><span class="cn">TRUE</span>, layout<span class="op">=</span><span class="fu">igraph</span><span class="fu">::</span><span class="va"><a href="https://rdrr.io/pkg/igraph/man/layout_as_tree.html">layout_as_tree</a></span><span class="op">)</span></code></pre></div>
+<code class="sourceCode R"><span class="fu">igplot</span><span class="op">(</span><span class="va">g1</span>, weights<span class="op">=</span><span class="cn">TRUE</span>, layout<span class="op">=</span><span class="fu">igraph</span><span class="fu">::</span><span class="va"><a href="https://rdrr.io/pkg/igraph/man/layout_as_tree.html" class="external-link">layout_as_tree</a></span><span class="op">)</span></code></pre></div>
 <p><img src="pcp_files/figure-html/unnamed-chunk-29-1.png" width="336" style="display: block; margin: auto;"></p>
 <p>For the weight-ordered Eulerian which follows high outlying edges first, we need to construct the graph whose edges are the negative of those in <code>g1</code>.</p>
 <p>It is not so straigtforward to do this using the graph package,</p>
 <div class="sourceCode" id="cb30"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="va">e</span> <span class="op">&lt;-</span> <span class="fu">edgeMatrix</span><span class="op">(</span><span class="va">g1</span>,duplicates<span class="op">=</span><span class="cn">FALSE</span><span class="op">)</span>
-<span class="va">ew</span> <span class="op">&lt;-</span> <span class="fu">eWV</span><span class="op">(</span><span class="va">g1</span>,<span class="va">e</span><span class="op">)</span>
-<span class="va">e</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/matrix.html">matrix</a></span><span class="op">(</span><span class="fu">nodes</span><span class="op">(</span><span class="va">g1</span><span class="op">)</span><span class="op">[</span><span class="va">e</span><span class="op">]</span>,ncol<span class="op">=</span><span class="fl">2</span>,byrow<span class="op">=</span><span class="cn">TRUE</span><span class="op">)</span>
-<span class="va">g2</span> <span class="op">&lt;-</span> <span class="fu">ftM2graphNEL</span><span class="op">(</span><span class="va">e</span>,<span class="op">-</span><span class="va">ew</span>,edgemode<span class="op">=</span><span class="st">"undirected"</span><span class="op">)</span></code></pre></div>
+<code class="sourceCode R"><span class="va">e</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/pkg/graph/man/edgeMatrix.html" class="external-link">edgeMatrix</a></span><span class="op">(</span><span class="va">g1</span>,duplicates<span class="op">=</span><span class="cn">FALSE</span><span class="op">)</span>
+<span class="va">ew</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/pkg/graph/man/edgeMatrix.html" class="external-link">eWV</a></span><span class="op">(</span><span class="va">g1</span>,<span class="va">e</span><span class="op">)</span>
+<span class="va">e</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/matrix.html" class="external-link">matrix</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/pkg/graph/man/graphNEL-class.html" class="external-link">nodes</a></span><span class="op">(</span><span class="va">g1</span><span class="op">)</span><span class="op">[</span><span class="va">e</span><span class="op">]</span>,ncol<span class="op">=</span><span class="fl">2</span>,byrow<span class="op">=</span><span class="cn">TRUE</span><span class="op">)</span>
+<span class="va">g2</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/pkg/graph/man/matrix2Graph.html" class="external-link">ftM2graphNEL</a></span><span class="op">(</span><span class="va">e</span>,<span class="op">-</span><span class="va">ew</span>,edgemode<span class="op">=</span><span class="st">"undirected"</span><span class="op">)</span></code></pre></div>
 <p>and perhaps the following is easier:</p>
 <div class="sourceCode" id="cb31"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="va">g2</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/knn_graph.html">dn_graph</a></span><span class="op">(</span><span class="fu"><a href="../reference/mk_complete_graph.html">mk_complete_graph</a></span><span class="op">(</span><span class="op">-</span><span class="va">dOut</span><span class="op">)</span>,<span class="op">-</span><span class="fl">.2</span> , test<span class="op">=</span><span class="va">`&lt;=`</span><span class="op">)</span></code></pre></div>
+<code class="sourceCode R"><span class="va">g2</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/specialg.html">dn_graph</a></span><span class="op">(</span><span class="fu"><a href="../reference/mk_complete_graph.html">mk_complete_graph</a></span><span class="op">(</span><span class="op">-</span><span class="va">dOut</span><span class="op">)</span>,<span class="op">-</span><span class="fl">.2</span> , test<span class="op">=</span><span class="va">`&lt;=`</span><span class="op">)</span></code></pre></div>
 <p>Either way, the Eulerian and corresponding plot is</p>
 <div class="sourceCode" id="cb32"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="va">o</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/eulerian.html">eulerian</a></span><span class="op">(</span><span class="va">g2</span><span class="op">)</span>
 <span class="va">o</span>
 <span class="co">#&gt; [1] "GP" "L"  "Bd" "SW" "L"  "Br" "GP"</span>
-<span class="va">o</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/match.html">match</a></span><span class="op">(</span><span class="va">o</span>, <span class="fu"><a href="https://rdrr.io/r/base/names.html">names</a></span><span class="op">(</span><span class="va">data</span><span class="op">)</span><span class="op">)</span>
-<span class="fu"><a href="https://rdrr.io/r/graphics/par.html">par</a></span><span class="op">(</span>tcl <span class="op">=</span> <span class="op">-</span><span class="fl">.2</span>, cex.axis<span class="op">=</span><span class="fl">.86</span>,mgp<span class="op">=</span><span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="fl">3</span>,<span class="fl">.3</span>,<span class="fl">0</span><span class="op">)</span><span class="op">)</span>
+<span class="va">o</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/match.html" class="external-link">match</a></span><span class="op">(</span><span class="va">o</span>, <span class="fu"><a href="https://rdrr.io/r/base/names.html" class="external-link">names</a></span><span class="op">(</span><span class="va">data</span><span class="op">)</span><span class="op">)</span>
+<span class="fu"><a href="https://rdrr.io/r/graphics/par.html" class="external-link">par</a></span><span class="op">(</span>tcl <span class="op">=</span> <span class="op">-</span><span class="fl">.2</span>, cex.axis<span class="op">=</span><span class="fl">.86</span>,mgp<span class="op">=</span><span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">3</span>,<span class="fl">.3</span>,<span class="fl">0</span><span class="op">)</span><span class="op">)</span>
 <span class="fu"><a href="../reference/guided_pcp.html">guided_pcp</a></span><span class="op">(</span><span class="va">data</span>,<span class="va">scOut</span>, path<span class="op">=</span><span class="va">o</span>,pcp.col<span class="op">=</span><span class="va">colOut</span>,lwd<span class="op">=</span><span class="fl">1.4</span>,
          main<span class="op">=</span> <span class="st">"Eulerian for high Outlying graph"</span>,
          bar.col <span class="op">=</span> <span class="va">scag_cols</span><span class="op">[</span><span class="st">"Outlying"</span><span class="op">]</span>,
-         legend<span class="op">=</span><span class="cn">FALSE</span>,bar.axes<span class="op">=</span><span class="cn">TRUE</span>,bar.ylim<span class="op">=</span><span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="fl">0</span>,<span class="fu"><a href="https://rdrr.io/r/base/Extremes.html">max</a></span><span class="op">(</span><span class="va">scOut</span><span class="op">)</span><span class="op">)</span><span class="op">)</span></code></pre></div>
+         legend<span class="op">=</span><span class="cn">FALSE</span>,bar.axes<span class="op">=</span><span class="cn">TRUE</span>,bar.ylim<span class="op">=</span><span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">0</span>,<span class="fu"><a href="https://rdrr.io/r/base/Extremes.html" class="external-link">max</a></span><span class="op">(</span><span class="va">scOut</span><span class="op">)</span><span class="op">)</span><span class="op">)</span></code></pre></div>
 <p><img src="pcp_files/figure-html/unnamed-chunk-32-1.png" width="480" style="display: block; margin: auto;"></p>
-<p>There is one panel in the above plot which has an outlier score below 0.2. This is SW-L. Looking back at the result of <code><a href="../reference/eulerian.html">eulerian(g2)</a></code>, the edge SW-L does not belong to <code>g2</code>, it was added simply to make the graph Eulerian.</p>
+<p>There is one panel in the above plot which has an outlier score below 0.2. This is SW-L. Looking back at the result of <code>eulerian(g2)</code>, the edge SW-L does not belong to <code>g2</code>, it was added simply to make the graph Eulerian.</p>
 <p>The case colours used in the PCP marked the outliers in the GP-L plot found previously, Humans are in red and the Asian Elephant in blue. It looks like these two cases are responsible for the high outlier scores in all panels except Bd-SW.</p>
 </div>
-  </div>
-
-  <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">
-
-        <nav id="toc" data-toggle="toc"><h2 data-toc-skip>Contents</h2>
-    </nav>
-</div>
-
+  </main><aside class="col-md-3"><nav id="toc"><h2>On this page</h2>
+    </nav></aside>
 </div>
 
 
 
-      <footer><div class="copyright">
-  <p>Developed by Catherine Hurley.</p>
+    <footer><div class="pkgdown-footer-left">
+  <p></p>
+<p>Developed by Catherine Hurley.</p>
 </div>
 
-<div class="pkgdown">
-  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.6.1.</p>
+<div class="pkgdown-footer-right">
+  <p></p>
+<p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.1.</p>
 </div>
 
-      </footer>
+    </footer>
 </div>
 
   
 
+  
 
   </body>
 </html>

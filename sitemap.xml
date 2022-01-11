@@ -1,6 +1,24 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   <url>
+    <loc>https://cbhurley.github.io/PairViz/404.html</loc>
+  </url>
+  <url>
+    <loc>https://cbhurley.github.io/PairViz/articles/MultipleComparisons.html</loc>
+  </url>
+  <url>
+    <loc>https://cbhurley.github.io/PairViz/articles/PairVizIntroduction.html</loc>
+  </url>
+  <url>
+    <loc>https://cbhurley.github.io/PairViz/articles/index.html</loc>
+  </url>
+  <url>
+    <loc>https://cbhurley.github.io/PairViz/articles/pcp.html</loc>
+  </url>
+  <url>
+    <loc>https://cbhurley.github.io/PairViz/authors.html</loc>
+  </url>
+  <url>
     <loc>https://cbhurley.github.io/PairViz/index.html</loc>
   </url>
   <url>
@@ -32,6 +50,9 @@
   </url>
   <url>
     <loc>https://cbhurley.github.io/PairViz/reference/hpaths.html</loc>
+  </url>
+  <url>
+    <loc>https://cbhurley.github.io/PairViz/reference/index.html</loc>
   </url>
   <url>
     <loc>https://cbhurley.github.io/PairViz/reference/mc_plot.html</loc>
@@ -74,14 +95,5 @@
   </url>
   <url>
     <loc>https://cbhurley.github.io/PairViz/reference/whpaths.html</loc>
-  </url>
-  <url>
-    <loc>https://cbhurley.github.io/PairViz/articles/MultipleComparisons.html</loc>
-  </url>
-  <url>
-    <loc>https://cbhurley.github.io/PairViz/articles/PairVizIntroduction.html</loc>
-  </url>
-  <url>
-    <loc>https://cbhurley.github.io/PairViz/articles/pcp.html</loc>
   </url>
 </urlset>
