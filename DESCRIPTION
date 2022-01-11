@@ -4,12 +4,13 @@ Date: 2022-01-10
 Author: C.B. Hurley and R.W. Oldford
 Maintainer: Catherine Hurley <catherine.hurley@mu.ie>
 Title: Visualization using Graph Traversal
-Description: Improving graphics by ameliorating order effects, using Eulerian tours and Hamiltonian decompositions of  graphs. 
-biocViews:
+Description: Improving graphics by ameliorating order effects, using Eulerian tours 
+    and Hamiltonian decompositions of  graphs. References for the methods presented 
+    here are C.B. Hurley and R.W. Oldford (2010) <doi:10.1198/jcgs.2010.09136> and 
+    C.B. Hurley and R.W. Oldford (2011) <doi:10.1007/s00180-011-0229-5>.
 Depends: TSP,gtools, graph, methods
 Suggests: knitr, rmarkdown, Sleuth3, colorspace,multcomp,igraph, scales,RColorBrewer,alr4,scagnostics
 License: GPL-2
 VignetteBuilder: knitr
 RoxygenNote: 7.1.2
-URL: https://cbhurley.github.io/PairViz,
-    https://cbhurley.github.io/PairViz/
+URL: https://cbhurley.github.io/PairViz
