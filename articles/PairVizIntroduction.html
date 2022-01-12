@@ -62,7 +62,7 @@
       <img src="" class="logo" alt=""><h1>Introduction to PairViz</h1>
                         <h4 data-toc-skip class="author">Catherine B. Hurley and R.W. Oldford</h4>
             
-            <h4 data-toc-skip class="date">2022-01-11</h4>
+            <h4 data-toc-skip class="date">2022-01-12</h4>
       
       
       <div class="d-none name"><code>PairVizIntroduction.Rmd</code></div>
@@ -121,7 +121,7 @@
 <p>A graph is a mathematical structure made up of nodes, and edges joining those nodes. We consider only graphs where edges are undirected. In some cases, edges are assigned weights, reflecting some measure of importance.</p>
 <p>A complete graph is a graph where there is an edge connecting every pair of nodes. Here are two such complete graphs, k4 with four nodes and k5 with five nodes.</p>
 <div class="sourceCode" id="cb5"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="fu"><a href="https://rdrr.io/r/base/message.html" class="external-link">suppressPackageStartupMessages</a></span><span class="op">(</span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://cbhurley.github.io/PairViz">PairViz</a></span><span class="op">)</span><span class="op">)</span>
+<code class="sourceCode R"><span class="fu"><a href="https://rdrr.io/r/base/message.html" class="external-link">suppressPackageStartupMessages</a></span><span class="op">(</span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://cbhurley.github.io/PairViz/">PairViz</a></span><span class="op">)</span><span class="op">)</span>
 <span class="va">k4</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/mk_complete_graph.html">mk_complete_graph</a></span><span class="op">(</span><span class="fl">4</span><span class="op">)</span>
 <span class="va">k5</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/mk_complete_graph.html">mk_complete_graph</a></span><span class="op">(</span><span class="fl">5</span><span class="op">)</span>
 <span class="fu">igplot</span><span class="op">(</span><span class="va">k4</span><span class="op">)</span>
@@ -295,7 +295,7 @@
 <span class="co"># input them as above. You might want to check that the igraph</span>
 <span class="co"># matches that of ew.</span>
 <span class="fu">igraph</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/igraph/man/E.html" class="external-link">E</a></span><span class="op">(</span><span class="fu">igraph</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/igraph/man/graph_from_graphnel.html" class="external-link">graph_from_graphnel</a></span><span class="op">(</span><span class="va">k7</span><span class="op">)</span><span class="op">)</span>
-<span class="co">#&gt; + 21/21 edges from cbbb9d4 (vertex names):</span>
+<span class="co">#&gt; + 21/21 edges from 20724a1 (vertex names):</span>
 <span class="co">#&gt;  [1] 1--2 1--3 1--4 1--5 1--6 1--7 2--3 2--4 2--5 2--6 2--7 3--4 3--5 3--6 3--7</span>
 <span class="co">#&gt; [16] 4--5 4--6 4--7 5--6 5--7 6--7</span></code></pre></div>
 <p>Like <code><a href="../reference/hpaths.html">hpaths()</a></code>, the function <code><a href="../reference/whpaths.html">weighted_hpaths()</a></code> finds Hamiltonians which when concatenated visit all edges at least once. However <code><a href="../reference/whpaths.html">weighted_hpaths()</a></code> uses a greedy algorithm to make the first Hamiltonian low weight with weights increasing for successive Hamiltonians.</p>

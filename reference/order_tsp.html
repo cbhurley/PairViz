@@ -94,7 +94,7 @@ When  <code>path_dir</code>  is non NULL, the returned hamiltonian is also optim
 
     <div class="section level2">
     <h2 id="ref-examples">Examples<a class="anchor" aria-label="anchor" href="#ref-examples"></a></h2>
-    <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">require</a></span><span class="op">(</span><span class="va"><a href="https://cbhurley.github.io/PairViz">PairViz</a></span><span class="op">)</span></span>
+    <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">require</a></span><span class="op">(</span><span class="va"><a href="https://cbhurley.github.io/PairViz/">PairViz</a></span><span class="op">)</span></span>
 <span class="r-in"></span>
 <span class="r-in"></span>
 <span class="r-in"><span class="va">rdist</span> <span class="op">&lt;-</span> <span class="kw">function</span><span class="op">(</span><span class="va">n</span><span class="op">)</span> <span class="op">{</span></span>
@@ -105,14 +105,14 @@ When  <code>path_dir</code>  is non NULL, the returned hamiltonian is also optim
 <span class="r-in"></span>
 <span class="r-in"></span>
 <span class="r-in"><span class="fu">order_tsp</span><span class="op">(</span><span class="fu">rdist</span><span class="op">(</span><span class="fl">7</span><span class="op">)</span><span class="op">)</span></span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> [1] 7 5 2 1 3 4 6</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [1] 4 1 5 3 7 6 2</span>
 <span class="r-in"></span>
 <span class="r-in"></span>
 <span class="r-in"></span>
 <span class="r-in"></span>
 <span class="r-in"><span class="va">edist</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/stats/dist.html" class="external-link">as.dist</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/pkg/TSP/man/ATSP.html" class="external-link">as.matrix</a></span><span class="op">(</span><span class="va">eurodist</span><span class="op">)</span><span class="op">)</span></span>
 <span class="r-in"><span class="fu">order_tsp</span><span class="op">(</span><span class="va">edist</span><span class="op">)</span></span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>  [1] 20 10  7 11  3  4  5 18  6 17 21  1 19 16  8 13 15  2 14 12  9</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>  [1]  9 14 12  2 13 15 16  8 18  5  4  3  6 11  7 20 10 17 21 19  1</span>
 <span class="r-in"></span>
 </code></pre></div>
     </div>
