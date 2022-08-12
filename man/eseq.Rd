@@ -33,9 +33,9 @@ The function eseqa constructs paths on 1..n using an alternative algorithm. For 
 then takes steps of size 1,2,..m repeatedly, where m is (n-1)/2, For even n, the path constructed
 is formed as eseqa(n+1), followed by dropping node n+1. 
 
-The function kntour\_drop removes instances of n from the  tour, creating an open  approximately eulerian path on the complete graph with n-1 nodes.
+The function kntour_drop removes instances of n from the  tour, creating an open  approximately eulerian path on the complete graph with n-1 nodes.
 
-The function kntour\_add inserts an extra node n+1 into a tour
+The function kntour_add inserts an extra node n+1 into a tour
 on nodes 1, ..n. It adds a detour to the tour visiting all edges joining nodes 1..n to n+1. The result is an open  approximately eulerian path on the complete graph with n+1 nodes.
 
 

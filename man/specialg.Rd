@@ -59,7 +59,7 @@ dn_graph- returns a  graph formed from g where edges of satisfy test(weight, d).
 
 mk_hypercube_graph- returns a hypercube graph with $2^n$ nodes
 
-mk_binary_graph(n,sep="",delta=1,test=`==`) - returns a  graph with $2^n$ nodes. Undirected edges join nodes A and B whose binary vectors satisfy \eqn{a_i \leq b_i$,$i=1, \ldots, n} and test(\eqn{\sum(b_i - a_i)}, delta) is true.
+mk_binary_graph(n,sep="",delta=1,test=`==`) - returns a  graph with \eqn{2^n} nodes. Undirected edges join nodes A and B whose binary vectors satisfy \eqn{a_i \leq b_i,i=1, \ldots, n} and test(\eqn{\sum(b_i - a_i)}, delta) is true.
 
 mk_line_graph- returns the line graph of g
 
