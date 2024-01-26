@@ -14,3 +14,4 @@ License: GPL-2
 VignetteBuilder: knitr
 RoxygenNote: 7.2.1
 URL: https://cbhurley.github.io/PairViz/
+BugReports: https://github.com/cbhurley/PairViz/issues
