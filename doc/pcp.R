@@ -5,13 +5,13 @@ knitr::opts_chunk$set(
 )
 options(digits=3)
 
-## ---- fig.align="center",fig.width=4, fig.height=2.5--------------------------
+## ----fig.align="center",fig.width=4, fig.height=2.5---------------------------
 suppressPackageStartupMessages(library(PairViz))
 data <- mtcars[,c(1,3:7)]
 pcp(data,horizontal=TRUE,lwd=2, col="grey50",
 main = "Standard PCP")
 
-## ---- fig.align="center",fig.width=7, fig.height=2.5--------------------------
+## ----fig.align="center",fig.width=7, fig.height=2.5---------------------------
 o <- hpaths(1:ncol(data),matrix=FALSE)
 par(cex.axis=.7)
 pcp(data,order=o,horizontal=TRUE,lwd=2, col="grey50",
@@ -24,12 +24,12 @@ corw <- as.dist(cor(data))
 o <- eulerian(-corw)
 o
 
-## ---- fig.align="center",fig.width=7, fig.height=2.5--------------------------
+## ----fig.align="center",fig.width=7, fig.height=2.5---------------------------
 par(cex.axis=.7)
 pcp(data,order=o,horizontal=TRUE,lwd=2, col="grey50",
 main = "Weighted eulerian")
 
-## ---- fig.align="center",fig.width=7, fig.height=3----------------------------
+## ----fig.align="center",fig.width=7, fig.height=3-----------------------------
 corw <- dist2edge(corw)
 edgew <- cbind(corw*(corw>0), corw*(corw<0))
 par(cex.axis=.7)
@@ -39,7 +39,7 @@ guided_pcp(data,edgew, path=o,pcp.col="grey50" ,lwd=2,
          bar.ylim=c(-1,1),bar.axes=TRUE)
 
 
-## ---- fig.align="center",fig.width=7, fig.height=2.5--------------------------
+## ----fig.align="center",fig.width=7, fig.height=2.5---------------------------
 pathw <-  path_weights(corw,o)
 corcols <- ifelse(pathw>0, "lightpink1", "lightcyan")
 par(cex.axis=.7)
@@ -102,7 +102,7 @@ rownames(dOut) <- colnames(dOut)<- names(data)
 ## -----------------------------------------------------------------------------
 o <-c( 2 , 4 , 1,  5 , 6,  7 , 3 , 8,  9, 10)
 
-## ---- fig.align="center",fig.width=7, fig.height=3----------------------------
+## ----fig.align="center",fig.width=7, fig.height=3-----------------------------
 par(tcl = -.2, cex.axis=.8,mgp=c(3,.3,0))
 guided_pcp(data,scOut, path=o,pcp.col=cols,lwd=1.4,
          main= "Best Hamiltonian for outliers",bar.col = scag_cols["Outlying"],legend=FALSE,bar.axes=TRUE,bar.ylim=c(0,max(scOut)))
@@ -135,7 +135,7 @@ scSS <- t(select_scagnostics(sc,c("Striated", "Sparse")))
 ## -----------------------------------------------------------------------------
 o <-  c(4, 10 , 2 , 9 , 1,  7 , 8,  6 , 5 ,3) 
 
-## ---- fig.align="center",fig.width=7, fig.height=3----------------------------
+## ----fig.align="center",fig.width=7, fig.height=3-----------------------------
 par(tcl = -.2, cex.axis=.8,mgp=c(3,.3,0))
 guided_pcp(data,scSS, path=o,pcp.col=cols,lwd=1.4,
          main= "Best Hamiltonian for Striated + Sparse",
@@ -150,7 +150,7 @@ o
 pathw <-  path_weights(scOut,o)
 head(pathw)
 
-## ---- fig.align="center",fig.width=7, fig.height=3,fig.show='hold'------------
+## ----fig.align="center",fig.width=7, fig.height=3,fig.show='hold'-------------
 par(tcl = -.2, cex.axis=.6,mgp=c(3,.3,0))
 guided_pcp(data,scOut, path=o[1:25],pcp.col=cols,lwd=1.4,
          main= "First 25: Eulerian for Outlying",

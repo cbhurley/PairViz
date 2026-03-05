@@ -16,7 +16,7 @@ organNames <- names(organs)
 # the structure of the organs data
 str(organs)
 
-## ---- fig.align="center", fig.width=6, fig.height=5---------------------------
+## ----fig.align="center", fig.width=6, fig.height=5----------------------------
 
 library(colorspace)
 cols <- rainbow_hcl(5, c = 50)  # choose chromaticity of 50 to dull colours
@@ -24,7 +24,7 @@ boxplot(organs, col=cols,
         ylab="Survival time", 
         main="Cancer treated by vitamin C")
 
-## ---- fig.align="center", fig.width=6, fig.height=5---------------------------
+## ----fig.align="center", fig.width=6, fig.height=5----------------------------
 # Split the data
 sqrtOrgans <- with(cancer, split(sqrt(Survival), Organ))
 boxplot(sqrtOrgans, col=cols, 
@@ -35,7 +35,7 @@ boxplot(sqrtOrgans, col=cols,
 ord <- eulerian(5)
 ord
 
-## ---- fig.align="center", fig.width=7.5, fig.height=5-------------------------
+## ----fig.align="center", fig.width=7.5, fig.height=5--------------------------
 boxplot(sqrtOrgans[ord], col=cols[ord], 
         ylab=expression(sqrt("Survival time")), 
         main="Cancer treated by vitamin C", cex.axis=.6)
@@ -97,7 +97,7 @@ eulerian(g)
 bestHam <- order_best(weights)
 colnames(weights)[bestHam]
 
-## ---- fig.align="center", fig.width=7.5, fig.height=5-------------------------
+## ----fig.align="center", fig.width=7.5, fig.height=5--------------------------
 boxplot(sqrtOrgans[low2highEulord], col=cols[ord], 
         ylab=expression(sqrt("Survival time")), 
         main="Cancer treated by vitamin C", cex.axis=.6)
@@ -157,7 +157,7 @@ levels(mice$Diet)
 # get rid of "/"
 levels(mice$Diet) <-  c("NN85", "NR40", "NR50", "NP" ,   "RR50" ,"lopro")
 
-## ---- fig.align="center", fig.width=6, fig.height=5---------------------------
+## ----fig.align="center", fig.width=6, fig.height=5----------------------------
 
 life <- with(mice, split(Lifetime ,Diet))
 cols <- rainbow_hcl(6, c = 50) 
@@ -200,7 +200,7 @@ g1 <- addEdge("lopro","RR50",g1,1)
 igplot(g1, weights=TRUE, layout=pos,vertex.size=32)
 eulerian(g1)
 
-## ---- fig.align="center", fig.width=6, fig.height=5---------------------------
+## ----fig.align="center", fig.width=6, fig.height=5----------------------------
 
 eul <- eulerian(g1)
 # make eul numeric

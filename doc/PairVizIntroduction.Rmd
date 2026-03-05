@@ -58,7 +58,7 @@ igplot <- function(g,weights=FALSE,layout=igraph::layout_in_circle,
     g <- igraph::graph_from_graphnel(as(g, "graphNEL"))
     op <- par(mar=c(1,1,1,1))
     if (weights){
-      ew <- round(igraph::get.edge.attribute(g,"weight"),3)  
+      ew <- round(igraph::edge_attr(g,"weight"),3)  
       igraph::plot.igraph(g,layout=layout,edge.label=ew,vertex.size=vertex.size,vertex.color=vertex.color,...)
     }
     else
